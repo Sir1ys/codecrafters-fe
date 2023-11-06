@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+  Pressable,
+} from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SignIn() {
@@ -18,8 +25,15 @@ export default function SignIn() {
       });
   };
 
+  const toggleForm = () => {
+    const signUpForm = document.getElementById("signUpForm");
+    const signInForm = document.getElementById("signInForm");
+    signUpForm.style.display = "flex";
+    signInForm.style.display = "none";
+  };
+
   return (
-    <View>
+    <View id="signInForm">
       <Text style={{ fontSize: 32, fontWeight: "600" }}>Sign in form</Text>
       <TextInput
         style={styles.textInput}
@@ -39,10 +53,17 @@ export default function SignIn() {
       />
       <Button
         style={styles.button}
-        title="Sign in"
+        title="Sign In"
         color={"green"}
         onPress={() => handleSubmit()}
       />
+      <Pressable
+        onPress={() => {
+          toggleForm();
+        }}
+      >
+        <Text>Don't have an account? Click here.</Text>
+      </Pressable>
     </View>
   );
 }
