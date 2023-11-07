@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text } from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Input } from "./Input";
 import { SubmitButton } from "./SubmitButton";
 import { Feather } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
+import { UserContext } from "../contexts/UserContext";
 
 export default function SignUp() {
   const [emailSignUp, setEmailSignUp] = useState("");
   const [passwordSignUp, setPasswordSignUp] = useState("");
   const [username, setUsername] = useState("");
+  const { userState, userAuth } = useContext(UserContext);
+  const setUser = userState[1];
+  const setUserAuthenticated = userAuth[1];
 
   const handleSubmit = () => {
     const auth = getAuth();
@@ -17,6 +21,8 @@ export default function SignUp() {
       .then(({ user }) => {
         const { email, uid } = user;
         const newUser = { email, uid };
+        setUser(newUser);
+        setUserAuthenticated(true);
       })
       .catch((error) => {
         const errorCode = error.code;
