@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Input } from "./Input";
 import { SubmitButton } from "./SubmitButton";
@@ -9,6 +9,7 @@ import { colors } from "../constants/colors";
 export default function SignUp() {
   const [emailSignUp, setEmailSignUp] = useState("");
   const [passwordSignUp, setPasswordSignUp] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleSubmit = () => {
     const auth = getAuth();
@@ -21,13 +22,6 @@ export default function SignUp() {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
-  };
-
-  const toggleForm = () => {
-    const signUpForm = document.getElementById("signUpForm");
-    const signInForm = document.getElementById("signInForm");
-    signUpForm.style.display = "none";
-    signInForm.style.display = "flex";
   };
 
   return (
@@ -51,6 +45,13 @@ export default function SignUp() {
         setState={setEmailSignUp}
       />
       <Input
+        label="Username"
+        icon="user"
+        iconPack={Feather}
+        state={username}
+        setState={setUsername}
+      />
+      <Input
         label="Password"
         icon="lock"
         iconPack={Feather}
@@ -63,13 +64,6 @@ export default function SignUp() {
         text="Sign Up"
         onPress={() => handleSubmit()}
       />
-      <Pressable
-        onPress={() => {
-          toggleForm();
-        }}
-      >
-        <Text>Already have an account? Click here.</Text>
-      </Pressable>
     </View>
   );
 }

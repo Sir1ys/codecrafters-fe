@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 import { Input } from "./Input";
@@ -21,13 +21,6 @@ export default function SignIn() {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
-  };
-
-  const toggleForm = () => {
-    const signUpForm = document.getElementById("signUpForm");
-    const signInForm = document.getElementById("signInForm");
-    signUpForm.style.display = "flex";
-    signInForm.style.display = "none";
   };
 
   return (
@@ -61,13 +54,6 @@ export default function SignIn() {
         text="Sign In"
         onPress={() => handleSubmit()}
       />
-      <Pressable
-        onPress={() => {
-          toggleForm();
-        }}
-      >
-        <Text>Don't have an account? Click here.</Text>
-      </Pressable>
     </View>
   );
 }
