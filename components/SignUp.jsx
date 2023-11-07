@@ -31,7 +31,7 @@ export default function SignUp() {
   };
 
   return (
-    <View id="signUpForm" style={{ display: "none" }}>
+    <View id="signUpForm">
       <Text
         style={{
           fontSize: 32,

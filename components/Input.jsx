@@ -2,7 +2,6 @@ import { View, StyleSheet, Text, TextInput } from "react-native";
 import { colors } from "../constants/colors";
 
 export const Input = (props) => {
-    
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{props.label}</Text>
@@ -50,14 +49,12 @@ const styles = StyleSheet.create({
   },
   label: {
     marginVertical: 8,
-    fontFamily: "bold",
     letterSpacing: 0.3,
     color: colors.textColor,
   },
   input: {
     color: colors.textColor,
     flex: 1,
-    fontFamily: "regular",
     letterSpacing: 0.3,
     paddingTop: 0,
   },
@@ -67,7 +64,6 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     fontSize: 13,
-    fontFamily: "bold",
     letterSpacing: 0.3,
   },
 });

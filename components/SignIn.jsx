@@ -14,7 +14,7 @@ export default function SignIn() {
   const setUser = userState[1];
   const setUserAuthenticated = userAuth[1];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, emailSignIn, passwordSignIn)
       .then(({ user }) => {
@@ -39,7 +39,7 @@ export default function SignIn() {
           color: `${colors.blue}`,
         }}
       >
-        Login
+        Sign In
       </Text>
       <Input
         label="Email"
