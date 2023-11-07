@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Button,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Input } from "./Input";
+import { SubmitButton } from "./SubmitButton";
+import { Feather } from "@expo/vector-icons";
+import { colors } from "../constants/colors";
 
 export default function SignUp() {
   const [emailSignUp, setEmailSignUp] = useState("");
   const [passwordSignUp, setPasswordSignUp] = useState("");
+
   const handleSubmit = () => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, emailSignUp, passwordSignUp)
@@ -34,27 +32,35 @@ export default function SignUp() {
 
   return (
     <View id="signUpForm" style={{ display: "none" }}>
-      <Text style={{ fontSize: 32, fontWeight: "600" }}>Sign Up form</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Enter email"
-        onChangeText={(text) => {
-          setEmailSignUp(text);
+      <Text
+        style={{
+          fontSize: 32,
+          fontWeight: "600",
+          textAlign: "center",
+          color: `${colors.blue}`,
         }}
-        value={emailSignUp}
+      >
+        Sign Up
+      </Text>
+
+      <Input
+        label="Email"
+        icon="mail"
+        iconPack={Feather}
+        state={emailSignUp}
+        setState={setEmailSignUp}
       />
-      <TextInput
-        style={styles.textInput}
-        placeholder="Enter password"
-        onChangeText={(text) => {
-          setPasswordSignUp(text);
-        }}
-        value={passwordSignUp}
+      <Input
+        label="Password"
+        icon="lock"
+        iconPack={Feather}
+        state={passwordSignUp}
+        setState={setPasswordSignUp}
       />
-      <Button
-        style={styles.button}
-        title="Sign Up"
-        color={"green"}
+
+      <SubmitButton
+        disabled={false}
+        text="Sign Up"
         onPress={() => handleSubmit()}
       />
       <Pressable
@@ -67,13 +73,3 @@ export default function SignUp() {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  textInput: {
-    fontSize: 16,
-    borderBottomWidth: 2,
-    borderColor: "rgb(2, 83, 145)",
-    margin: 10,
-    color: "grey",
-    width: 250,
-  },
-});
