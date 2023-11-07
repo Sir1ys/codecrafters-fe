@@ -1,15 +1,15 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainNavigator } from "./MainNavigator";
-import SignIn from "../components/SignIn";
+import LoginPage from "../components/LoginPage";
 
 export const AppNavigator = () => {
-  const isAuth = true;
+  const isAuth = false;
 
   return (
     <NavigationContainer>
       {isAuth && <MainNavigator />}
-      {!isAuth && <SignIn />}
+      {!isAuth && <LoginPage />}
     </NavigationContainer>
   );
 };

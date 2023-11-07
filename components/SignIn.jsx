@@ -10,7 +10,7 @@ export default function SignIn() {
   const [emailSignIn, setEmailSignIn] = useState("");
   const [passwordSignIn, setPasswordSignIn] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, emailSignIn, passwordSignIn)
       .then(({ user }) => {
@@ -33,7 +33,7 @@ export default function SignIn() {
           color: `${colors.blue}`,
         }}
       >
-        Login
+        Sign In
       </Text>
       <Input
         label="Email"
