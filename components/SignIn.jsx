@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Button,
-  Pressable,
-} from "react-native";
+import { View, Text } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Feather } from "@expo/vector-icons";
+import { Input } from "./Input";
+import { SubmitButton } from "./SubmitButton";
+import { colors } from "../constants/colors";
 
 export default function SignIn() {
   const [emailSignIn, setEmailSignIn] = useState("");
   const [passwordSignIn, setPasswordSignIn] = useState("");
+
   const handleSubmit = (e) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, emailSignIn, passwordSignIn)
@@ -25,55 +23,37 @@ export default function SignIn() {
       });
   };
 
-  const toggleForm = () => {
-    const signUpForm = document.getElementById("signUpForm");
-    const signInForm = document.getElementById("signInForm");
-    signUpForm.style.display = "flex";
-    signInForm.style.display = "none";
-  };
-
   return (
     <View id="signInForm">
-      <Text style={{ fontSize: 32, fontWeight: "600" }}>Sign in form</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Enter email"
-        onChangeText={(text) => {
-          setEmailSignIn(text);
-        }}
-        value={emailSignIn}
-      />
-      <TextInput
-        style={styles.textInput}
-        placeholder="Enter password"
-        onChangeText={(text) => {
-          setPasswordSignIn(text);
-        }}
-        value={passwordSignIn}
-      />
-      <Button
-        style={styles.button}
-        title="Sign In"
-        color={"green"}
-        onPress={() => handleSubmit()}
-      />
-      <Pressable
-        onPress={() => {
-          toggleForm();
+      <Text
+        style={{
+          fontSize: 32,
+          fontWeight: "600",
+          textAlign: "center",
+          color: `${colors.blue}`,
         }}
       >
-        <Text>Don't have an account? Click here.</Text>
-      </Pressable>
+        Login
+      </Text>
+      <Input
+        label="Email"
+        icon="mail"
+        iconPack={Feather}
+        state={emailSignIn}
+        setState={setEmailSignIn}
+      />
+      <Input
+        label="Password"
+        icon="lock"
+        iconPack={Feather}
+        state={passwordSignIn}
+        setState={setPasswordSignIn}
+      />
+      <SubmitButton
+        disabled={false}
+        text="Sign In"
+        onPress={() => handleSubmit()}
+      />
     </View>
   );
 }
-const styles = StyleSheet.create({
-  textInput: {
-    fontSize: 16,
-    borderBottomWidth: 2,
-    borderColor: "rgb(2, 83, 145)",
-    margin: 10,
-    color: "grey",
-    width: 250,
-  },
-});
