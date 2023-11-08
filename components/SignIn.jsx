@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 import { Input } from "./Input";
@@ -20,7 +20,7 @@ export default function SignIn() {
       .then(({ user }) => {
         const { email, uid } = user;
         const newUser = { email, uid };
-        setUser(newUser)
+        setUser(newUser);
         setUserAuthenticated(true);
       })
       .catch((error) => {
@@ -31,12 +31,17 @@ export default function SignIn() {
 
   return (
     <View id="signInForm">
+      <Image
+        source={require("../assets/Logo.png")}
+        style={{ alignSelf: "center" }}
+      />
       <Text
         style={{
           fontSize: 32,
           fontWeight: "600",
           textAlign: "center",
-          color: `${colors.blue}`,
+          color: `${colors.red}`,
+          fontFamily: "bold",
         }}
       >
         Sign In

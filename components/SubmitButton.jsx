@@ -12,7 +12,12 @@ export const SubmitButton = (props) => {
       onPress={props.disabled ? () => {} : props.onPress}
       style={{ ...styles.button, ...{ backgroundColor: bgColor } }}
     >
-      <Text style={{ color: props.disabled ? colors.grey : "white" }}>
+      <Text
+        style={{
+          color: props.disabled ? colors.grey : "white",
+          fontFamily: "bold",
+        }}
+      >
         {props.text}
       </Text>
     </TouchableOpacity>
@@ -28,5 +33,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
+    fontFamily: "bold",
   },
 });

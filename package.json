@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@expo/ngrok": "^4.1.1",
     "react-native-dotenv": "^3.4.9"
   },
   "private": true
