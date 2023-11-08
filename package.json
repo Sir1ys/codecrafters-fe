@@ -25,7 +25,8 @@
     "react-native-gesture-handler": "^2.13.4",
     "react-native-screens": "~3.22.0",
     "react-native-tab-view": "^3.5.2",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "validate.js": "^0.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
