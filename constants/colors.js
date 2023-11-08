@@ -1,8 +1,12 @@
 export const colors = {
-  blue: "#3498db",
+  blue: "#219C90",
+  orange: "#EE9322",
   nearlyWhite: "#F4F8F7",
-  grey: "#7F8CFD",
-  textColor: "#1C1E21",
-  primary: "#87C4FF",
+  yellow: "#E9B824",
+  orange: "#D83F31",
+  grey: "#D83F31",
+  textColor: "#000000",
+  primary: "#219C90",
   lightGrey: "#c1c7c9",
+  red: "#D83F31",
 };
