@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { Feed } from "../components/Feed";
 import { Profile } from "../components/Profile";
+import { colors } from "../constants/colors";
 
 const Tab = createBottomTabNavigator();
 
