@@ -69,5 +69,6 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 13,
     letterSpacing: 0.3,
+    fontFamily: "bold",
   },
 });

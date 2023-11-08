@@ -1,5 +1,5 @@
 import React, { useState, useContext, useCallback, useReducer } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Input } from "./Input";
 import { SubmitButton } from "./SubmitButton";
@@ -59,19 +59,28 @@ export default function SignUp() {
 
   return (
     <View id="signUpForm">
+      <Image
+        source={require("../assets/Logo.png")}
+        style={{ alignSelf: "center" }}
+      />
       <Text
         style={{
           fontSize: 32,
           fontWeight: "600",
           textAlign: "center",
-          color: `${colors.blue}`,
+          color: `${colors.red}`,
+          fontFamily: "bold",
         }}
       >
         Sign Up
       </Text>
 
       <Input
+
         id="email"
+        style={{
+          fontFamily: "bold",
+        }}
         label="Email"
         icon="mail"
         iconPack={Feather}
