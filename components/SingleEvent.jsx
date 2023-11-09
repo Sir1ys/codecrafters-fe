@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
-import { fetchEventById } from "../api";
+import React from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import moment from "moment";
 
-export default function SingleEvent(props) {
-  const [event, setEvent] = useState({});
-  const id = props.id;
-
-  useEffect(() => {
-    fetchEventById(id).then((data) => {
-      setEvent(data);
-    });
-  }, [id]);
+export default function SingleEvent({ route }) {
+  const { event } = route.params;
 
   return (
-    <View>
-      <Text>{event.short_description}</Text>
+    <View style={styles.container}>
+      <Text style={{ fontWeight: "700" }}>{event.short_description}</Text>
+      <Image source={event.event_img} />
+      <Text>{moment(event.date).format("DD/MM/YYYY, hh:mm")}</Text>
+      <Text>{event.description}</Text>
+      <Text>{event.location}</Text>
+      <Text>Map:</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+});
