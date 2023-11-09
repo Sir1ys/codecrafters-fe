@@ -3,7 +3,9 @@ import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import { fetchEvents } from "../api";
 import moment from "moment";
 
-export const Feed = (props) => {
+import SingleEvent from "./SingleEvent";
+
+export const Feed = ({ navigation }) => {
   const [eventList, setEventList] = useState([]);
 
   useEffect(() => {
@@ -28,7 +30,10 @@ export const Feed = (props) => {
                 <Text>{moment(event.date).format("DD/MM/YYYY")}</Text>
                 <Text>{event.description}</Text>
                 <Button title="Save"></Button>
-                <Button title="See event"></Button>
+                <Button
+                  title="see event"
+                  onPress={() => navigation.navigate("SingleEvent", "event")}
+                />
               </View>
             );
           })}
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
   },
   shadowProp: {
     shadowColor: "#000000",
-    shadowOffset: { width: -10, height: 100 },
+    shadowOffset: { width: -10, height: 20 },
   },
   button: {
     alignItems: "center",

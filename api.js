@@ -9,3 +9,7 @@ const api = axios.create({
 export const fetchEvents = () => {
   return api.get("/events").then((response) => response.data);
 };
+
+export const fetchEventById = (event_id) => {
+  return api.get(`/events/${event_id}`).then((response) => response.data);
+};

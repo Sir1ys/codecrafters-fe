@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { TabNavigator } from "./TabNavigator";
 import { Card } from "../components/Card";
 import { Image, StyleSheet } from "react-native";
+import SingleEvent from "../components/SingleEvent";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,14 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerTitle: "Card Test",
+        }}
+      />
+      <Stack.Screen
+        name="SingleEvent"
+        component={SingleEvent}
+        options={{
+          gestureEnabled: true,
+          headerTitle: "",
         }}
       />
     </Stack.Navigator>

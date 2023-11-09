@@ -1,4 +1,3 @@
-
 import React, { useState, useContext, useReducer, useCallback } from "react";
 import { View, Text, Image } from "react-native";
 
