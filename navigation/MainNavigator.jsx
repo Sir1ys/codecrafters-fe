@@ -23,7 +23,7 @@ export const MainNavigator = () => {
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
-            paddingBottom: 30,
+            // paddingBottom: 30,
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
