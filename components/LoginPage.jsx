@@ -12,7 +12,7 @@ import SignUp from "./SignUp";
 export default function LoginPage() {
   const [signIn, setSignIn] = useState(false);
   return (
-    <View>
+    <View style={styles.login}>
       <ScrollView>
         {signIn ? <SignIn /> : <SignUp />}
         <TouchableOpacity
@@ -42,5 +42,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginVertical: 20,
     fontFamily: "regular",
+  },
+  login: {
+    padding: 15,
   },
 });

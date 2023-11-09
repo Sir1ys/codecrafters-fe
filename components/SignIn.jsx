@@ -1,4 +1,3 @@
-
 import React, { useState, useContext, useReducer, useCallback } from "react";
 import { View, Text, Image } from "react-native";
 
@@ -57,6 +56,12 @@ export default function SignIn() {
       });
   };
 
+  const demoSignIn = () => {
+    console.log("Demo");
+    setUser({ email: "email@fixme.com", uid: "1" });
+    setUserAuthenticated(true);
+  };
+
   return (
     <View id="signInForm">
       <Image
@@ -97,6 +102,11 @@ export default function SignIn() {
         disabled={!formState.formIsValid}
         text="Sign In"
         onPress={() => handleSubmit()}
+      />
+      <SubmitButton
+        disabled={false}
+        text="Demo Sign in"
+        onPress={() => demoSignIn()}
       />
     </View>
   );
