@@ -65,8 +65,6 @@ export default function SignUp() {
         });
       })
       .then((newUser) => {
-        console.log(newUser);
-        console.log("Our api output^");
         setUser(newUser);
         setUserAuthenticated(true);
       })

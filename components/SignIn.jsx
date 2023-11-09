@@ -9,6 +9,7 @@ import { colors } from "../constants/colors";
 import { UserContext } from "../contexts/UserContext";
 import { reducer } from "../utils/formReducer";
 import { validateInput } from "../utils/validation";
+import { getUserById } from "../utils/users_api";
 
 export default function SignIn() {
   const [emailSignIn, setEmailSignIn] = useState("");
@@ -45,9 +46,11 @@ export default function SignIn() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, emailSignIn, passwordSignIn)
       .then(({ user }) => {
-        const { email, uid } = user;
-        const newUser = { email, uid };
-        setUser(newUser);
+        const { uid } = user;
+        return getUserById(uid);
+      })
+      .then((signedInUser) => {
+        setUser(signedInUser);
         setUserAuthenticated(true);
       })
       .catch((error) => {
@@ -58,7 +61,15 @@ export default function SignIn() {
 
   const demoSignIn = () => {
     console.log("Demo");
-    setUser({ email: "email@fixme.com", uid: "1" });
+    setUser({
+      user_id: "1",
+      username: "butter_bridge",
+      name: "Jonny",
+      profile_pic:
+        "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg",
+      created_at: "2022-12-01T00:00:00.000Z",
+      email: "fakeemail1@gmrail.com",
+    });
     setUserAuthenticated(true);
   };
 
