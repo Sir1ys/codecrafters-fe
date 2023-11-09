@@ -69,17 +69,16 @@ export default function SignUp() {
           fontWeight: "600",
           textAlign: "center",
           color: `${colors.red}`,
-          fontFamily: "bold",
+          fontFamily: "poppins_bold",
         }}
       >
         Sign Up
       </Text>
 
       <Input
-
         id="email"
         style={{
-          fontFamily: "bold",
+          fontFamily: "regular",
         }}
         label="Email"
         icon="mail"

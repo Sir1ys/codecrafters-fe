@@ -15,7 +15,7 @@ export const SubmitButton = (props) => {
       <Text
         style={{
           color: props.disabled ? colors.grey : "white",
-          fontFamily: "bold",
+          fontFamily: "poppins_bold",
         }}
       >
         {props.text}
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
-    fontFamily: "bold",
+    fontFamily: "poppins_bold",
   },
 });
