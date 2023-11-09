@@ -2,6 +2,9 @@ import { View, StyleSheet, Text, TextInput } from "react-native";
 import { colors } from "../constants/colors";
 
 export const Input = (props) => {
+  const onChangeText = (text) => {
+    props.onInputChanged(props.id, text);
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{props.label}</Text>
@@ -15,9 +18,10 @@ export const Input = (props) => {
           />
         )}
         <TextInput
+          {...props}
           style={styles.input}
           value={props.state}
-          onChangeText={(text) => props.setState(text)}
+          onChangeText={onChangeText}
         />
       </View>
 
@@ -65,5 +69,6 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 13,
     letterSpacing: 0.3,
+    fontFamily: "bold",
   },
 });
