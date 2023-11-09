@@ -15,3 +15,9 @@ export const createUser = (user) => {
     return response.data.user;
   });
 };
+
+export const updateUser = (userId, userDetails) => {
+  return usersAPI.patch(`/${userId}`, userDetails).then((response) => {
+    return response.data.user;
+  });
+};

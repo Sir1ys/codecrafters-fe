@@ -32,6 +32,25 @@ const validatePassword = (id, value) => {
   return result && result[id];
 };
 
+const validateUrl = (id, value) => {
+  const contraints = {
+    presence: { allowEmpty: false },
+  };
+
+  if (value !== "") {
+    contraints.url = true;
+    contraints.format = {
+      pattern: '(https?:\/\/.*\.(?:png|jpg))',
+      flags: "g",
+      message: "url must be image",
+    };
+  }
+
+  const result = validate({ [id]: value }, { [id]: contraints });
+
+  return result && result[id];
+};
+
 export const validateString = (id, value) => {
   const contraints = {
     presence: { allowEmpty: false },
@@ -47,7 +66,9 @@ export const validateInput = (inputId, inputValue) => {
     return validateEmail(inputId, inputValue);
   } else if (inputId === "password") {
     return validatePassword(inputId, inputValue);
-  } else if (inputId === "username") {
+  } else if (inputId === "username" || inputId === "name") {
     return validateString(inputId, inputValue);
+  } else if (inputId === "picture") {
+    return validateUrl(inputId, inputValue);
   }
 };

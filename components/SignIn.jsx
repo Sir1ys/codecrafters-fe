@@ -1,6 +1,5 @@
 import React, { useState, useContext, useReducer, useCallback } from "react";
 import { View, Text, Image } from "react-native";
-
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 import { Input } from "./Input";
@@ -66,7 +65,7 @@ export default function SignIn() {
       username: "butter_bridge",
       name: "Jonny",
       profile_pic:
-        "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg",
+        "https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg",
       created_at: "2022-12-01T00:00:00.000Z",
       email: "fakeemail1@gmrail.com",
     });

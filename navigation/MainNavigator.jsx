@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { TabNavigator } from "./TabNavigator";
 import { Card } from "../components/Card";
 import { Image, StyleSheet } from "react-native";
+import UpdateAboutSection from "../components/UpdateAboutSection";
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,11 @@ export const MainNavigator = () => {
           gestureEnabled: true,
           headerTitle: "Card Test",
         }}
+      />
+      <Stack.Screen
+        name="UpdateAbout"
+        component={UpdateAboutSection}
+        options={{ gestureEnabled: true, headerTitle: "Update Profile" }}
       />
     </Stack.Navigator>
   );

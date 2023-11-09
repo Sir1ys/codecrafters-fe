@@ -5,74 +5,34 @@ import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import Button from "./Button";
 
-export const Profile = () => {
-  const userExample = {
-    user_id: "1",
-    username: "butter_bridge",
-    name: "Jonny",
-    profile_pic:
-      "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg",
-    created_at: 1669852800000,
-  };
-  const userInterests = ["swimming", "running", "swimming", "swimming"];
-
+export const Profile = ({ navigation }) => {
   const { userState, userAuth } = useContext(UserContext);
   const [user, setUser] = userState;
   const setUserAuthenticated = userAuth[1];
+  const userInterests = ["swimming", "running", "tennis"];
+
+  const { name, profile_pic, username } = user;
 
   const handleLogOut = () => {
     setUser({});
     setUserAuthenticated(false);
   };
 
-  const handleEdit = () => {};
-
   return (
     <View style={styles.container}>
-      <View style={styles.about}>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
-        >
+      <View style={styles.aboutContainer}>
+        <View style={styles.about}>
           <View>
             <View style={{ marginBottom: 15 }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: "500",
-                  color: "#034694",
-                  marginBottom: 10,
-                }}
-              >
-                Name:
-              </Text>
-              <Text style={styles.username}>{userExample.name}</Text>
+              <Text style={styles.label}>Name:</Text>
+              <Text style={styles.username}>{name}</Text>
             </View>
             <View>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: "500",
-                  color: "#034694",
-                  marginBottom: 10,
-                }}
-              >
-                Username:
-              </Text>
-              <Text style={styles.username}>{userExample.username}</Text>
+              <Text style={styles.label}>Username:</Text>
+              <Text style={styles.username}>{username}</Text>
             </View>
           </View>
-          <Image
-            source={{
-              uri: "https://www.usatoday.com/gcdn/presto/2023/02/12/USAT/4252b022-bc71-444a-a788-dadaf02571de-5910.JPG?crop=7375,4917,x0,y0&width=700&height=467&format=pjpg&auto=webp",
-            }}
-            style={styles.avatar}
-          />
+          <Image source={profile_pic} style={styles.avatar} />
         </View>
 
         <Feather
@@ -81,17 +41,17 @@ export const Profile = () => {
           size={25}
           color="black"
           onPress={() => {
-            handleEdit();
+            navigation.navigate("UpdateAbout", { user, setUser });
           }}
         />
       </View>
 
       <View style={styles.interestContainer}>
-        <Text style={{ fontSize: 20, fontWeight: "600" }}>Your interests:</Text>
+        <Text style={styles.label}>Your interests:</Text>
         <View style={styles.interestList}>
           {userInterests.map((interest) => {
             return (
-              <Text style={[styles.textInterest, styles.boxShadow]}>
+              <Text key={interest} style={[styles.textInterest]}>
                 #{interest}
               </Text>
             );
@@ -112,19 +72,32 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    display: "flex",
+    flex: 1,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 10,
   },
-  about: {
+  aboutContainer: {
     width: "100%",
     padding: 20,
-    display: "flex",
+    flex: 1,
     alignItems: "center",
     borderBottomColor: colors.blue,
     borderBottomWidth: 3,
+  },
+  about: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: "500",
+    color: "#034694",
+    marginBottom: 10,
   },
   avatar: {
     height: 150,
@@ -143,14 +116,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   interestContainer: {
-    display: "flex",
+    flex: 1,
     flexDirection: "column",
     alignSelf: "flex-start",
     padding: 20,
     gap: 15,
   },
   interestList: {
-    display: "flex",
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
@@ -158,14 +131,8 @@ const styles = StyleSheet.create({
   textInterest: {
     fontSize: 15,
     fontWeight: "500",
-    color: colors.lightGrey,
+    color: colors.blue,
     padding: 10,
-  },
-  boxShadow: {
-    shadowColor: "#171717",
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
   },
   button: {
     backgroundColor: colors.blue,
