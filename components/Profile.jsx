@@ -29,6 +29,16 @@ export const Profile = ({ navigation }) => {
   const [pickerValue, setPickerValue] = useState("");
   let newInterest = "";
 
+  const newInterestList = allInterests.map((singleInterest) => {
+    return {
+      label: singleInterest.interest,
+      value: singleInterest.interest_id,
+    };
+  });
+  const selectedInterests = userInterests.map((interestObj) => {
+    return interestObj.interest;
+  });
+
   useEffect(() => {
     getUserInterests(user_id)
       .then((interests) => {
@@ -123,11 +133,8 @@ export const Profile = ({ navigation }) => {
       <RNPickerSelect
         placeholder={{ label: "Pick a new interest" }}
         onValueChange={(value) => handleNewInterest(value)}
-        items={allInterests.map((singleInterest) => {
-          return {
-            label: singleInterest.interest,
-            value: singleInterest.interest_id,
-          };
+        items={newInterestList.filter((interest) => {
+          return !selectedInterests.includes(interest.label);
         })}
         value={pickerValue}
       />
