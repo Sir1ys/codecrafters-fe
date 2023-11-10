@@ -21,6 +21,8 @@ export const TabNavigator = () => {
               <Feather name="message-circle" size={24} color={colors.orange} />
             );
           },
+          tabBarInactiveTintColor: colors.lightGrey,
+          tabBarActiveTintColor: colors.blue,
         }}
       />
       <Tab.Screen
@@ -28,9 +30,12 @@ export const TabNavigator = () => {
         component={Feed}
         options={{
           tabBarLabel: "Feed",
+
           tabBarIcon: ({ color, size }) => {
             return <Feather name="menu" size={24} color={colors.orange} />;
           },
+          tabBarInactiveTintColor: colors.lightGrey,
+          tabBarActiveTintColor: colors.blue,
         }}
       />
       <Tab.Screen
@@ -41,6 +46,8 @@ export const TabNavigator = () => {
           tabBarIcon: ({ color, size }) => {
             return <Feather name="user" size={24} color={colors.orange} />;
           },
+          tabBarInactiveTintColor: colors.lightGrey,
+          tabBarActiveTintColor: colors.blue,
         }}
       />
     </Tab.Navigator>

@@ -4,6 +4,7 @@ import { TabNavigator } from "./TabNavigator";
 import { Card } from "../components/Card";
 import { Image, StyleSheet } from "react-native";
 import UpdateAboutSection from "../components/UpdateAboutSection";
+import SingleEvent from "../components/SingleEvent";
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,28 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerTitle: "Card Test",
+        }}
+      />
+      <Stack.Screen
+        name="SingleEvent"
+        component={SingleEvent}
+        options={{
+          gestureEnabled: true,
+          headerMode: "screen",
+          title: (
+            <Image
+              style={styles.tinyLogo}
+              source={require("../assets/tinyLogo.png")}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
         }}
       />
       <Stack.Screen

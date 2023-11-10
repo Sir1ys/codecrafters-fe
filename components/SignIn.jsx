@@ -83,8 +83,8 @@ export default function SignIn() {
           fontSize: 32,
           fontWeight: "600",
           textAlign: "center",
-          color: `${colors.red}`,
-          fontFamily: "bold",
+          color: `${colors.orange}`,
+          fontFamily: "poppins_bold",
         }}
       >
         Sign In
@@ -112,6 +112,7 @@ export default function SignIn() {
         disabled={!formState.formIsValid}
         text="Sign In"
         onPress={() => handleSubmit()}
+        style={{ color: `${colors.orange}` }}
       />
       <SubmitButton
         disabled={false}
