@@ -26,17 +26,8 @@ export default function SingleEvent({ route }) {
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.header}>{event.short_description}</Text>
-        {/* <Image
-          source={require("../assets/testImage.png")}
-          style={{
-            width: 350,
-            height: 150,
-            alignSelf: "center",
-            marginVertical: 10,
-          }}
-        /> */}
-        {/* /*  THIS ^^^ IS JUST A TEST IMAGE UNTIL BACKEND HAS BEEN REDEPLOYED */}
-        <Image source={event.event_picture} style={styles.eventImage} />
+
+        <Image src={event.event_picture} style={styles.eventImage} />
         <Text style={styles.text}>
           <Feather name="map-pin" size={18} color={colors.blue} padding={20} />
           {event.location}

@@ -39,7 +39,7 @@ export const Feed = ({ navigation }) => {
                 key={event.event_id}
               >
                 <Text style={styles.title}>{event.short_description}</Text>
-                <Image source={event.event_picture} style={styles.eventImage} />
+                <Image src={event.event_picture} style={styles.eventImage} />
                 <Text style={styles.text}>
                   <Feather
                     name="map-pin"

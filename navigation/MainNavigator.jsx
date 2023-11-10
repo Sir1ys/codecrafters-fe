@@ -46,12 +46,7 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerMode: "screen",
-          title: (
-            <Image
-              style={styles.tinyLogo}
-              source={require("../assets/tinyLogo.png")}
-            />
-          ),
+          headerTitle: "",
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
