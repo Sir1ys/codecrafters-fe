@@ -10,6 +10,9 @@ export const fetchEvents = () => {
   return api.get("/events").then((response) => response.data);
 };
 
-export const attendEvent = () => {
-  return api.post("users/:username/events/attending");
+export const attendEvent = (event_id, user_id) => {
+  return api.post("/events_users/:user_id", {
+    event_id: event_id,
+    user_id: user_id,
+  });
 };

@@ -1,46 +1,65 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, Button, Pressable } from "react-native";
+import React, { useContext, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import moment from "moment";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
+import { attendEvent } from "../api";
+import { UserContext } from "../contexts/UserContext";
 
 export default function SingleEvent({ route }) {
   const { event } = route.params;
+  const { userState } = useContext(UserContext);
+  const [user, setUser] = userState;
+
+  const handleAttend = () => {
+    attendEvent(event.event_id, user.user_id);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>{event.short_description}</Text>
-      <Image
-        source={require("../assets/testImage.png")}
-        style={{
-          width: 350,
-          height: 150,
-          alignSelf: "center",
-          marginVertical: 10,
-        }}
-      />
-      {/* /*  THIS ^^^ IS JUST A TEST IMAGE UNTIL BACKEND HAS BEEN REDEPLOYED */}
-      <Image source={event.event_img} />
-      <Text style={styles.text}>
-        <Feather name="map-pin" size={18} color={colors.blue} padding={20} />
-        {event.location}
-      </Text>
-      <Text style={styles.date}>
-        {moment(event.date).format("dddd Do MMMM YYYY ")}
-      </Text>
-      <Text style={styles.date}>{moment(event.date).format("h:mm a")}</Text>
-      <Text style={styles.body}>{event.description}</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.header}>{event.short_description}</Text>
+        {/* <Image
+          source={require("../assets/testImage.png")}
+          style={{
+            width: 350,
+            height: 150,
+            alignSelf: "center",
+            marginVertical: 10,
+          }}
+        /> */}
+        {/* /*  THIS ^^^ IS JUST A TEST IMAGE UNTIL BACKEND HAS BEEN REDEPLOYED */}
+        <Image source={event.event_picture} style={styles.eventImage} />
+        <Text style={styles.text}>
+          <Feather name="map-pin" size={18} color={colors.blue} padding={20} />
+          {event.location}
+        </Text>
+        <Text style={styles.date}>
+          {moment(event.date).format("dddd Do MMMM YYYY ")}
+        </Text>
+        <Text style={styles.date}>{moment(event.date).format("h:mm a")}</Text>
+        <Text style={styles.body}>{event.description}</Text>
 
-      <Text>Map:</Text>
-      <View style={styles.buttonContainer}>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Attend</Text>
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Save for later</Text>
-        </Pressable>
+        <Text>Map:</Text>
+        <View style={styles.buttonContainer}>
+          <Pressable style={styles.button}>
+            <Text style={styles.buttonText} onPress={handleAttend()}>
+              Attend
+            </Text>
+          </Pressable>
+          <Pressable style={styles.button}>
+            <Text style={styles.buttonText}>Save for later</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -109,5 +128,11 @@ const styles = StyleSheet.create({
     fontWeight: "poppins_bold",
     letterSpacing: 0.25,
     color: "white",
+  },
+  eventImage: {
+    width: 350,
+    height: 150,
+    alignSelf: "center",
+    marginVertical: 10,
   },
 });
