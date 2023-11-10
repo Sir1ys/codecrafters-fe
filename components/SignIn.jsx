@@ -1,6 +1,5 @@
 import React, { useState, useContext, useReducer, useCallback } from "react";
 import { View, Text, Image } from "react-native";
-
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 import { Input } from "./Input";
@@ -9,6 +8,7 @@ import { colors } from "../constants/colors";
 import { UserContext } from "../contexts/UserContext";
 import { reducer } from "../utils/formReducer";
 import { validateInput } from "../utils/validation";
+import { getUserById } from "../utils/users_api";
 
 export default function SignIn() {
   const [emailSignIn, setEmailSignIn] = useState("");
@@ -45,15 +45,31 @@ export default function SignIn() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, emailSignIn, passwordSignIn)
       .then(({ user }) => {
-        const { email, uid } = user;
-        const newUser = { email, uid };
-        setUser(newUser);
+        const { uid } = user;
+        return getUserById(uid);
+      })
+      .then((signedInUser) => {
+        setUser(signedInUser);
         setUserAuthenticated(true);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
+  };
+
+  const demoSignIn = () => {
+    console.log("Demo");
+    setUser({
+      user_id: "1",
+      username: "butter_bridge",
+      name: "Jonny",
+      profile_pic:
+        "https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg",
+      created_at: "2022-12-01T00:00:00.000Z",
+      email: "fakeemail1@gmrail.com",
+    });
+    setUserAuthenticated(true);
   };
 
   return (
@@ -97,6 +113,11 @@ export default function SignIn() {
         text="Sign In"
         onPress={() => handleSubmit()}
         style={{ color: `${colors.orange}` }}
+      />
+      <SubmitButton
+        disabled={false}
+        text="Demo Sign in"
+        onPress={() => demoSignIn()}
       />
     </View>
   );

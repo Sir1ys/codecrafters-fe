@@ -8,11 +8,13 @@ import { colors } from "../constants/colors";
 import { UserContext } from "../contexts/UserContext";
 import { validateInput } from "../utils/validation";
 import { reducer } from "../utils/formReducer";
-import { ScrollView } from "react-native";
+import { createUser } from "../utils/users_api";
+import { dateFromTimestamp } from "../utils/dates";
 
 export default function SignUp() {
   const [passwordSignUp, setPasswordSignUp] = useState("");
   const [emailSignUp, setEmailSignUp] = useState("");
+  const [usernameSignUp, setUsernameSignUp] = useState("");
   const { userState, userAuth } = useContext(UserContext);
   const setUser = userState[1];
   const setUserAuthenticated = userAuth[1];
@@ -36,6 +38,9 @@ export default function SignUp() {
       if (inputId === "password") {
         setPasswordSignUp(inputValue);
       }
+      if (inputId === "username") {
+        setUsernameSignUp(inputValue);
+      }
       const result = validateInput(inputId, inputValue);
       dispatchFormState({ inputId, validationResult: result });
     },
@@ -47,13 +52,26 @@ export default function SignUp() {
     createUserWithEmailAndPassword(auth, emailSignUp, passwordSignUp)
       .then(({ user }) => {
         const { email, uid } = user;
-        const newUser = { email, uid };
+        const createdAt = user.metadata.createdAt;
+        return createUser({
+          user: {
+            email,
+            user_id: uid,
+            created_at: dateFromTimestamp(createdAt),
+            name: usernameSignUp,
+            username: usernameSignUp,
+            profile_pic: "https://i.stack.imgur.com/34AD2.jpg",
+          },
+        });
+      })
+      .then((newUser) => {
         setUser(newUser);
         setUserAuthenticated(true);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
       });
   };
 

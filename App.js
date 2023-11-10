@@ -15,6 +15,7 @@ export default function App() {
         await Font.loadAsync({
           black: require("./assets/fonts/Montserrat-Thin.ttf"),
           poppins_bold: require("./assets/fonts/Poppins-Bold.ttf"),
+          bold: require("./assets/fonts/Poppins-Bold.ttf"),
           poppins_black: require("./assets/fonts/Poppins-Black.ttf"),
           regular: require("./assets/fonts/Poppins-Regular.ttf"),
           thin: require("./assets/fonts/Poppins-Thin.ttf"),

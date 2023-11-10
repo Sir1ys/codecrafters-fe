@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { TabNavigator } from "./TabNavigator";
 import { Card } from "../components/Card";
 import { Image, StyleSheet } from "react-native";
+import UpdateAboutSection from "../components/UpdateAboutSection";
 import SingleEvent from "../components/SingleEvent";
 
 const Stack = createStackNavigator();
@@ -60,6 +61,11 @@ export const MainNavigator = () => {
             fontWeight: "bold",
           },
         }}
+      />
+      <Stack.Screen
+        name="UpdateAbout"
+        component={UpdateAboutSection}
+        options={{ gestureEnabled: true, headerTitle: "Update Profile" }}
       />
     </Stack.Navigator>
   );
