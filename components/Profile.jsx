@@ -1,21 +1,88 @@
-import React, { useContext } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
-import Button from "./Button";
+import CustomButton from "./Button";
+import {
+  addUserInterest,
+  getUserInterests,
+  removeUserInterest,
+} from "../utils/users_api";
+import RNPickerSelect from "react-native-picker-select";
+import { getAllInterests } from "../utils/interests_api";
 
 export const Profile = ({ navigation }) => {
   const { userState, userAuth } = useContext(UserContext);
   const [user, setUser] = userState;
   const setUserAuthenticated = userAuth[1];
-  const userInterests = ["swimming", "running", "tennis"];
+  const { name, profile_pic, username, user_id } = user;
+  const [userInterests, setUserInterests] = useState([]);
+  const [allInterests, setAllInterests] = useState([]);
+  const [pickerValue, setPickerValue] = useState("");
+  let newInterest = "";
 
-  const { name, profile_pic, username } = user;
+  const newInterestList = allInterests.map((singleInterest) => {
+    return {
+      label: singleInterest.interest,
+      value: singleInterest.interest_id,
+      key: singleInterest.interest_id,
+    };
+  });
+  const selectedInterests = userInterests.map((interestObj) => {
+    return interestObj.interest;
+  });
+
+  useEffect(() => {
+    getUserInterests(user_id)
+      .then((interests) => {
+        setUserInterests(interests);
+      })
+      .catch((err) => console.log(err));
+    getAllInterests()
+      .then((interests) => {
+        setAllInterests(interests);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleLogOut = () => {
     setUser({});
     setUserAuthenticated(false);
+  };
+
+  const handleDeleteInterest = (interestId) => {
+    removeUserInterest(user_id, interestId)
+      .then(() => {
+        return getUserInterests(user_id);
+      })
+      .then((interests) => {
+        setUserInterests(interests);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleNewInterest = (interestId) => {
+    newInterest = interestId;
+  };
+
+  const addNewInterest = (interestId) => {
+    addUserInterest(user_id, interestId)
+      .then(() => {
+        setPickerValue("");
+        return getUserInterests(user_id);
+      })
+      .then((interests) => {
+        setUserInterests(interests);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -45,21 +112,38 @@ export const Profile = ({ navigation }) => {
           }}
         />
       </View>
-
       <View style={styles.interestContainer}>
         <Text style={styles.label}>Your interests:</Text>
         <View style={styles.interestList}>
           {userInterests.map((interest) => {
             return (
-              <Text key={interest} style={[styles.textInterest]}>
-                #{interest}
-              </Text>
+              <View style={styles.singleInterest}>
+                <Text key={interest} style={styles.textInterest}>
+                  #{interest.interest}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => handleDeleteInterest(interest.interest_id)}
+                >
+                  <Feather name="delete" size={24} color="red" />
+                </TouchableOpacity>
+              </View>
             );
           })}
         </View>
       </View>
+      <RNPickerSelect
+        placeholder={{ label: "Pick a new interest" }}
+        onValueChange={(value) => handleNewInterest(value)}
+        items={newInterestList.filter((interest) => {
+          return !selectedInterests.includes(interest.label);
+        })}
+        value={pickerValue}
+      />
+      <TouchableOpacity onPress={() => addNewInterest(newInterest)}>
+        <Feather name="plus-circle" size={24} color="green" />
+      </TouchableOpacity>
 
-      <Button
+      <CustomButton
         text={"Sign out"}
         styles={{ button: styles.button, text: styles.textButton }}
         handleCLick={handleLogOut}
@@ -143,5 +227,10 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: "white",
+  },
+  singleInterest: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
