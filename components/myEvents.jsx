@@ -13,7 +13,7 @@ export default function MyEvents({ navigation }) {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "space-around",
+              justifyContent: "space-evenly",
             }}
           >
             <Text style={styles.buttonText}>Saved Events </Text>
@@ -24,7 +24,16 @@ export default function MyEvents({ navigation }) {
           style={styles.button}
           onPress={() => navigation.navigate("Attending")}
         >
-          <Text style={styles.buttonText}>Attending</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Text style={styles.buttonText}>Attending</Text>
+            <Feather name="check" size={18} color="white" />
+          </View>
         </Pressable>
       </View>
     </View>
