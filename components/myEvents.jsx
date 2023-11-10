@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 
-export default function MyEvents() {
+export default function MyEvents({ navigation }) {
   return (
     <View>
       <Text style={styles.header}>My Events</Text>
@@ -16,19 +16,15 @@ export default function MyEvents() {
               justifyContent: "space-around",
             }}
           >
-            <Text style={styles.buttonText}>Save </Text>
+            <Text style={styles.buttonText}>Saved Events </Text>
             <Feather name="bookmark" size={18} color="white" />
           </View>
         </Pressable>
         <Pressable
           style={styles.button}
-          onPress={() =>
-            navigation.navigate("SingleEvent", {
-              event: event,
-            })
-          }
+          onPress={() => navigation.navigate("Attending")}
         >
-          <Text style={styles.buttonText}> See Event</Text>
+          <Text style={styles.buttonText}>Attending</Text>
         </Pressable>
       </View>
     </View>
