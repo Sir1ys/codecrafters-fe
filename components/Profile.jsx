@@ -32,7 +32,7 @@ export const Profile = ({ navigation }) => {
               <Text style={styles.username}>{username}</Text>
             </View>
           </View>
-          <Image source={profile_pic} style={styles.avatar} />
+          <Image source={{ uri: profile_pic }} style={styles.avatar} />
         </View>
 
         <Feather
