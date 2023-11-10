@@ -1,21 +1,45 @@
-import React, { useContext } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
-import Button from "./Button";
+import CustomButton from "./Button";
+import { getUserInterests, removeUserInterest } from "../utils/users_api";
 
 export const Profile = ({ navigation }) => {
   const { userState, userAuth } = useContext(UserContext);
   const [user, setUser] = userState;
   const setUserAuthenticated = userAuth[1];
-  const userInterests = ["swimming", "running", "tennis"];
+  const { name, profile_pic, username, user_id } = user;
+  const [userInterests, setUserInterests] = useState([]);
 
-  const { name, profile_pic, username } = user;
+  useEffect(() => {
+    getUserInterests(user_id).then((interests) => {
+      setUserInterests(interests);
+    });
+  }, []);
 
   const handleLogOut = () => {
     setUser({});
     setUserAuthenticated(false);
+  };
+
+  const handleDeleteInterest = (interestId) => {
+    removeUserInterest(user_id, interestId)
+      .then(() => {
+        return getUserInterests(user_id);
+      })
+      .then((interests) => {
+        setUserInterests(interests);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -51,15 +75,22 @@ export const Profile = ({ navigation }) => {
         <View style={styles.interestList}>
           {userInterests.map((interest) => {
             return (
-              <Text key={interest} style={[styles.textInterest]}>
-                #{interest}
-              </Text>
+              <View style={styles.singleInterest}>
+                <Text key={interest} style={styles.textInterest}>
+                  #{interest.interest}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => handleDeleteInterest(interest.interest_id)}
+                >
+                  <Feather name="delete" size={24} color="red" />
+                </TouchableOpacity>
+              </View>
             );
           })}
         </View>
       </View>
 
-      <Button
+      <CustomButton
         text={"Sign out"}
         styles={{ button: styles.button, text: styles.textButton }}
         handleCLick={handleLogOut}
@@ -143,5 +174,10 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: "white",
+  },
+  singleInterest: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

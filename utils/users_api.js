@@ -21,3 +21,17 @@ export const updateUser = (userId, userDetails) => {
     return response.data.user;
   });
 };
+
+export const getUserInterests = (userId) => {
+  return usersAPI.get(`/${userId}/interests`).then((response) => {
+    return response.data.userInterests;
+  });
+};
+
+export const removeUserInterest = (userId, interestId) => {
+  return usersAPI
+    .delete(`/${userId}/interests/${interestId}`)
+    .then((response) => {
+      return response;
+    });
+};
