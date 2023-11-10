@@ -44,7 +44,21 @@ export const MainNavigator = () => {
         component={SingleEvent}
         options={{
           gestureEnabled: true,
-          headerTitle: "",
+          headerMode: "screen",
+          title: (
+            <Image
+              style={styles.tinyLogo}
+              source={require("../assets/tinyLogo.png")}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
         }}
       />
     </Stack.Navigator>

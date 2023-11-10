@@ -9,3 +9,7 @@ const api = axios.create({
 export const fetchEvents = () => {
   return api.get("/events").then((response) => response.data);
 };
+
+export const attendEvent = () => {
+  return api.post("users/:username/events/attending");
+};
