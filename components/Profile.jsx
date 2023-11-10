@@ -33,6 +33,7 @@ export const Profile = ({ navigation }) => {
     return {
       label: singleInterest.interest,
       value: singleInterest.interest_id,
+      key: singleInterest.interest_id,
     };
   });
   const selectedInterests = userInterests.map((interestObj) => {
