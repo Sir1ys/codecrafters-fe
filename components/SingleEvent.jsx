@@ -18,10 +18,6 @@ export default function SingleEvent({ route }) {
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
 
-  const handleAttend = () => {
-    attendEvent(event.event_id, user.user_id);
-  };
-
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -41,7 +37,10 @@ export default function SingleEvent({ route }) {
         <Text>Map:</Text>
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button}>
-            <Text style={styles.buttonText} onPress={handleAttend()}>
+            <Text
+              style={styles.buttonText}
+              onPress={attendEvent(event.event_id, user.user_id)}
+            >
               Attend
             </Text>
           </Pressable>

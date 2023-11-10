@@ -11,8 +11,5 @@ export const fetchEvents = () => {
 };
 
 export const attendEvent = (event_id, user_id) => {
-  return api.post("/events_users/:user_id", {
-    event_id: event_id,
-    user_id: user_id,
-  });
+  return api.post(`/users/${user_id}/my-events/${event_id}`);
 };

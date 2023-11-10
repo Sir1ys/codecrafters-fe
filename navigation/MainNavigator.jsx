@@ -5,6 +5,7 @@ import { Card } from "../components/Card";
 import { Image, StyleSheet } from "react-native";
 import UpdateAboutSection from "../components/UpdateAboutSection";
 import SingleEvent from "../components/SingleEvent";
+import AddEvent from "../components/AddEvent";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,23 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="SingleEvent"
         component={SingleEvent}
+        options={{
+          gestureEnabled: true,
+          headerMode: "screen",
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddEvent"
+        component={AddEvent}
         options={{
           gestureEnabled: true,
           headerMode: "screen",

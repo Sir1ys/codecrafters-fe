@@ -18,6 +18,7 @@
     "@react-navigation/stack": "^6.3.20",
     "axios": "^1.6.1",
     "expo": "~49.0.15",
+    "expo-font": "~11.4.0",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.5.2",
     "moment": "^2.29.4",
@@ -28,8 +29,7 @@
     "react-native-screens": "~3.22.0",
     "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.19.6",
-    "validate.js": "^0.13.1",
-    "expo-font": "~11.4.0"
+    "validate.js": "^0.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
