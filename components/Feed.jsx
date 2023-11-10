@@ -31,7 +31,7 @@ export const Feed = ({ navigation }) => {
             style={styles.button}
             onPress={() => navigation.navigate("AddEvent")}
           >
-            <Feather name="plus" size={24} color="black" />
+            <Feather name="plus" size={24} color={colors.white} />
           </Pressable>
         </View>
         <View style={styles.container}>
