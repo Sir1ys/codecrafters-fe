@@ -11,7 +11,13 @@ import { UserContext } from "../contexts/UserContext";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import CustomButton from "./Button";
-import { getUserInterests, removeUserInterest } from "../utils/users_api";
+import {
+  addUserInterest,
+  getUserInterests,
+  removeUserInterest,
+} from "../utils/users_api";
+import RNPickerSelect from "react-native-picker-select";
+import { getAllInterests } from "../utils/interests_api";
 
 export const Profile = ({ navigation }) => {
   const { userState, userAuth } = useContext(UserContext);
@@ -19,11 +25,21 @@ export const Profile = ({ navigation }) => {
   const setUserAuthenticated = userAuth[1];
   const { name, profile_pic, username, user_id } = user;
   const [userInterests, setUserInterests] = useState([]);
+  const [allInterests, setAllInterests] = useState([]);
+  const [pickerValue, setPickerValue] = useState("");
+  let newInterest = "";
 
   useEffect(() => {
-    getUserInterests(user_id).then((interests) => {
-      setUserInterests(interests);
-    });
+    getUserInterests(user_id)
+      .then((interests) => {
+        setUserInterests(interests);
+      })
+      .catch((err) => console.log(err));
+    getAllInterests()
+      .then((interests) => {
+        setAllInterests(interests);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleLogOut = () => {
@@ -34,6 +50,22 @@ export const Profile = ({ navigation }) => {
   const handleDeleteInterest = (interestId) => {
     removeUserInterest(user_id, interestId)
       .then(() => {
+        return getUserInterests(user_id);
+      })
+      .then((interests) => {
+        setUserInterests(interests);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleNewInterest = (interestId) => {
+    newInterest = interestId;
+  };
+
+  const addNewInterest = (interestId) => {
+    addUserInterest(user_id, interestId)
+      .then(() => {
+        setPickerValue("");
         return getUserInterests(user_id);
       })
       .then((interests) => {
@@ -69,7 +101,6 @@ export const Profile = ({ navigation }) => {
           }}
         />
       </View>
-
       <View style={styles.interestContainer}>
         <Text style={styles.label}>Your interests:</Text>
         <View style={styles.interestList}>
@@ -89,6 +120,20 @@ export const Profile = ({ navigation }) => {
           })}
         </View>
       </View>
+      <RNPickerSelect
+        placeholder={{ label: "Pick a new interest" }}
+        onValueChange={(value) => handleNewInterest(value)}
+        items={allInterests.map((singleInterest) => {
+          return {
+            label: singleInterest.interest,
+            value: singleInterest.interest_id,
+          };
+        })}
+        value={pickerValue}
+      />
+      <TouchableOpacity onPress={() => addNewInterest(newInterest)}>
+        <Feather name="plus-circle" size={24} color="green" />
+      </TouchableOpacity>
 
       <CustomButton
         text={"Sign out"}

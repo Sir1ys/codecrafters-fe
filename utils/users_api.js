@@ -35,3 +35,11 @@ export const removeUserInterest = (userId, interestId) => {
       return response;
     });
 };
+
+export const addUserInterest = (userId, interestId) => {
+  return usersAPI
+    .post(`/${userId}/interests/`, { interest_id: interestId })
+    .then((response) => {
+      return response.data;
+    });
+};
