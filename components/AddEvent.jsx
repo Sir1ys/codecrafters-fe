@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { colors } from "../constants/colors";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 export default function AddEvent() {
   const [titleText, setTitleText] = useState("");
