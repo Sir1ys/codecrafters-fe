@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {
   View,
   Text,
@@ -6,6 +7,8 @@ import {
   StyleSheet,
   Pressable,
   Platform,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { colors } from "../constants/colors";
@@ -63,7 +66,6 @@ export default function AddEvent() {
   return (
     <View>
       <Text style={styles.header}>Add a Post</Text>
-
       <Text style={styles.text}>Event name:</Text>
       <TextInput
         autocapitalize="words"
@@ -73,7 +75,6 @@ export default function AddEvent() {
           setTitleText(text);
         }}
       />
-
       <Text style={styles.text}>Description:</Text>
       <TextInput
         placeholder="e.g 'join us for a trip to the markets  "
@@ -83,15 +84,6 @@ export default function AddEvent() {
         }}
       />
       <Text style={styles.text}>Location</Text>
-      <TextInput
-        placeholder="Location"
-        autoComplete="postal-address-extended"
-        value={location}
-        onChangeText={(text) => {
-          setLocation(text);
-        }}
-      />
-
       <Text style={styles.text}>Max number of attendees:</Text>
       <TextInput
         placeholder="e.g. 12"
@@ -101,7 +93,6 @@ export default function AddEvent() {
           setnumAttending(parseInt(numeric) || 0);
         }}
       />
-
       <View>
         <Text style={styles.text}> Event Date:</Text>
         {!showDatePicker && (
@@ -144,6 +135,22 @@ export default function AddEvent() {
             onChange={onTimeChange}
           />
         )}
+      </View>
+      <View style={StyleSheet.absoluteFillObject}>
+        <GooglePlacesAutocomplete
+          placeholder="Type a location..."
+          query={{ key: process.env.GOOGLE_MAPS_API_KEY }}
+          fetchDetails={true}
+          onPress={(data, details = null) => {
+            console.log(data);
+            console.log(details);
+            console.log(data.description);
+            console.log(details.geometry);
+            setLocation(data.description);
+          }}
+          onFail={(error) => console.log(error)}
+          onNotFound={() => console.log("no results")}
+        />
       </View>
     </View>
   );
