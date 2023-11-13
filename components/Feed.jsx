@@ -38,6 +38,7 @@ export const Feed = ({ navigation, route }) => {
         </View>
         <View style={styles.container}>
           {eventList.map((event) => {
+            console.log(event);
             if (event.location.split(" ")[1] === tripInfo.country) {
               return (
                 <View
@@ -45,7 +46,10 @@ export const Feed = ({ navigation, route }) => {
                   key={event.event_id}
                 >
                   <Text style={styles.title}>{event.short_description}</Text>
-                  <Image src={event.event_picture} style={styles.eventImage} />
+                  <Image
+                    source={{ uri: event.event_picture }}
+                    style={styles.eventImage}
+                  />
                   <Text style={styles.text}>
                     <Feather
                       name="map-pin"
@@ -71,18 +75,6 @@ export const Feed = ({ navigation, route }) => {
                         <Text style={styles.buttonText}>Save </Text>
                         <Feather name="bookmark" size={18} color="white" />
                       </View>
-                    </Pressable>
-                    <Pressable
-                      style={styles.button}
-                      onPress={() =>
-                        navigation.navigate("SingleEvent", {
-                          event_id: event.event_id,
-                          event: event,
-                        })
-                      }
-                    >
-                      <Text style={styles.buttonText}>Save </Text>
-                      <Feather name="bookmark" size={18} color="white" />
                     </Pressable>
                     <Pressable
                       style={styles.button}

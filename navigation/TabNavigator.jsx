@@ -32,19 +32,6 @@ export const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Menu"
-        component={Feed}
-        options={{
-          tabBarLabel: "Feed",
-
-          tabBarIcon: ({ color, size }) => {
-            return <Feather name="menu" size={24} color={colors.orange} />;
-          },
-          tabBarInactiveTintColor: colors.lightGrey,
-          tabBarActiveTintColor: colors.blue,
-        }}
-      />
-      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
