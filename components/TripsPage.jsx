@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import { getUserTrips } from "../utils/users_api";
 import { getFlagCountryByName } from "../utils/countries_api";
 import { colors } from "../constants/colors";
 import { dateFromTimestamp, friendlyDate } from "../utils/dates";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Feather } from "@expo/vector-icons";
 
 export default function TripsPage({ navigation }) {
   const [trips, setTrips] = useState([]);
@@ -34,6 +35,12 @@ export default function TripsPage({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Your Trips</Text>
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate("AddTrip")}
+      >
+        <Feather name="plus" size={24} color={colors.white} />
+      </Pressable>
       {trips.map((trip, index) => {
         const { country, trip_id, location, start_date, end_date } = trip;
         return (
@@ -115,5 +122,21 @@ const styles = StyleSheet.create({
   },
   heading: {
     color: `${colors.grey}`,
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 29,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    paddingBottom: 10,
+    marginBottom: 10,
   },
 });

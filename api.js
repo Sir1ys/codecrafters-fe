@@ -26,3 +26,46 @@ export const fetchAttending = (user_id) => {
       });
     });
 };
+
+export const postTrip = (
+  creator_id,
+  start_date,
+  end_date,
+  country,
+  city,
+  latitude,
+  longitude
+) => {
+  console.log({
+    trip: {
+      creator_id: creator_id,
+      start_date: start_date,
+      end_date: end_date,
+      country: country,
+      location: city,
+      latitude: latitude,
+      longitude: longitude,
+    },
+  });
+  return api.post(`/users/${creator_id}/trips`, {
+    trip: {
+      creator_id: creator_id,
+      start_date: start_date,
+      end_date: end_date,
+      country: country,
+      location: city,
+      latitude: latitude,
+      longitude: longitude,
+    },
+  });
+};
+
+export const fetchLatLong = (city) => {
+  return axios
+    .get(
+      `https://api.geoapify.com/v1/geocode/search?text=${city}&apiKey=f124a95983fb473899d9b4a0fbd69ef5`
+    )
+    .then((response) => {
+      return response.data.features[0].geometry.coordinates;
+    });
+};

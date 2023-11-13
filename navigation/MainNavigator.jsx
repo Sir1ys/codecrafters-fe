@@ -8,6 +8,7 @@ import SingleEvent from "../components/SingleEvent";
 import { Feed } from "../components/Feed";
 import AddEvent from "../components/AddEvent";
 import Attending from "../components/Attending";
+import AddTrip from "../components/AddTrip";
 
 const Stack = createStackNavigator();
 
@@ -63,6 +64,23 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="AddEvent"
         component={AddEvent}
+        options={{
+          gestureEnabled: true,
+          headerMode: "screen",
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AddTrip"
+        component={AddTrip}
         options={{
           gestureEnabled: true,
           headerMode: "screen",

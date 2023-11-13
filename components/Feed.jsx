@@ -22,8 +22,6 @@ export const Feed = ({ navigation, route }) => {
     });
   }, []);
 
-  console.log(tripInfo);
-
   return (
     <ScrollView>
       <View style={styles.container}>
