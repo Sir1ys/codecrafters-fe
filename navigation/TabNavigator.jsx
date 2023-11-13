@@ -4,6 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { Feed } from "../components/Feed";
 import { Profile } from "../components/Profile";
 import { colors } from "../constants/colors";
+import MyEvents from "../components/MyEvents";
 
 const Tab = createBottomTabNavigator();
 
@@ -45,6 +46,18 @@ export const TabNavigator = () => {
           tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => {
             return <Feather name="user" size={24} color={colors.orange} />;
+          },
+          tabBarInactiveTintColor: colors.lightGrey,
+          tabBarActiveTintColor: colors.blue,
+        }}
+      />
+      <Tab.Screen
+        name="My Events"
+        component={MyEvents}
+        options={{
+          tabBarLabel: "My Events",
+          tabBarIcon: ({ color, size }) => {
+            return <Feather name="calendar" size={24} color={colors.orange} />;
           },
           tabBarInactiveTintColor: colors.lightGrey,
           tabBarActiveTintColor: colors.blue,

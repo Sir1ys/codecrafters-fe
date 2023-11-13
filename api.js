@@ -13,3 +13,16 @@ export const fetchEvents = () => {
 export const attendEvent = (event_id, user_id) => {
   return api.post(`/users/${user_id}/my-events/${event_id}`);
 };
+
+export const fetchAttending = (user_id) => {
+  return api
+    .get(`/users/${user_id}/my-events`)
+    .then((response) => {
+      return response.data;
+    })
+    .then((data) => {
+      return data.eventsUsers.map((event) => {
+        return api.get(`/events/${event.event_id}`);
+      });
+    });
+};
