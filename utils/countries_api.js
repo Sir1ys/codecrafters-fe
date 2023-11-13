@@ -6,7 +6,6 @@ const countriesAPI = axios.create({
 
 export const getFlagCountryByName = (name) => {
   return countriesAPI.get(`/name/${name}?fullText=true`).then((response) => {
-    console.log(response);
     return response.data[0].flags.png;
   });
 };
