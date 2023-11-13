@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Pressable,
+  ScrollView,
   Image,
 } from "react-native";
-import { fetchEvents } from "../api";
-import moment from "moment";
+import { fetchAttending } from "../api";
+import { UserContext } from "../contexts/UserContext";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
+import moment from "moment";
 
-export const Feed = ({ navigation }) => {
-  const [eventList, setEventList] = useState([]);
+export default function Attending({ navigation }) {
+  const [eventsAttending, setEventsAttending] = useState([]);
+  const { userState } = useContext(UserContext);
+  const [user, setUser] = userState;
 
   useEffect(() => {
-    fetchEvents().then(({ events }) => {
-      setEventList(events);
+    fetchAttending(user.user_id).then((result) => {
+      console.log(result.data.events);
+      setEventsAttending(result.data.events);
     });
   }, []);
 
@@ -25,16 +29,10 @@ export const Feed = ({ navigation }) => {
     <ScrollView>
       <View style={styles.container}>
         <View>
-          <Text style={styles.header}>Your Feed</Text>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("AddEvent")}
-          >
-            <Feather name="plus" size={24} color={colors.white} />
-          </Pressable>
+          <Text style={styles.header}>Events You're Attending</Text>
         </View>
         <View style={styles.container}>
-          {eventList.map((event) => {
+          {eventsAttending.map((event) => {
             return (
               <View
                 style={[styles.event, styles.shadowProp]}
@@ -60,14 +58,6 @@ export const Feed = ({ navigation }) => {
                 </Text>
                 <Text style={styles.body}>{event.description}</Text>
                 <View style={styles.buttonContainer}>
-                  <Pressable style={styles.button}>
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <Text style={styles.buttonText}>Save </Text>
-                      <Feather name="bookmark" size={18} color="white" />
-                    </View>
-                  </Pressable>
                   <Pressable
                     style={styles.button}
                     onPress={() =>
@@ -76,7 +66,7 @@ export const Feed = ({ navigation }) => {
                       })
                     }
                   >
-                    <Text style={styles.buttonText}> See Event</Text>
+                    <Text style={styles.buttonText}>See Event</Text>
                   </Pressable>
                 </View>
               </View>
@@ -86,7 +76,7 @@ export const Feed = ({ navigation }) => {
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -94,35 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: `${colors.white}`,
-  },
-  event: {
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    marginVertical: 10,
-    padding: 20,
-    backgroundColor: `${colors.white}`,
-    shadowColor: "#219C90",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 13,
-    elevation: 24,
-  },
-
-  shadowProp: {
-    shadowColor: "#219C90",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 13,
-    shadowRadius: 23,
-    elevation: 30,
+    backgroundColor: "white",
   },
   button: {
     alignItems: "center",
@@ -139,31 +101,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     paddingBottom: 10,
     marginBottom: 10,
-  },
-  header: {
-    fontFamily: "poppins_bold",
-    fontSize: 22,
-    color: `${colors.orange}`,
-    paddingTop: 10,
-  },
-  buttonText: {
-    fontSize: 13,
-    lineHeight: 15,
-    fontWeight: "poppins_bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-  },
-  title: {
-    fontFamily: "poppins_bold",
-    color: `${colors.lightBlack}`,
-    fontSize: 15,
-    alignSelf: "center",
-    textAlign: "center",
+    marginRight: 10,
+    marginLeft: 10,
   },
   text: {
     fontFamily: "regular",
@@ -173,20 +112,40 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     marginBottom: 5,
   },
-  body: {
-    fontFamily: "regular",
-    color: `${colors.black}`,
+  header: {
+    fontFamily: "poppins_bold",
+    fontSize: 22,
+    color: `${colors.orange}`,
+    textAlign: "center",
+    width: 410,
     flexWrap: "wrap",
-    fontSize: 12,
-    fontStyle: "normal",
   },
   date: {
     fontFamily: "poppins_bold",
     color: `${colors.orange}`,
     fontSize: 12,
   },
+  body: {
+    fontFamily: "regular",
+    color: `${colors.black}`,
+    flexWrap: "wrap",
+    fontSize: 13,
+    fontStyle: "normal",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    fontSize: 13,
+    lineHeight: 15,
+    fontWeight: "poppins_bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
   eventImage: {
-    width: 250,
+    width: 350,
     height: 150,
     alignSelf: "center",
     marginVertical: 10,
