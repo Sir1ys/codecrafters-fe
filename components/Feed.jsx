@@ -12,7 +12,8 @@ import moment from "moment";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 
-export const Feed = ({ navigation }) => {
+export const Feed = ({ navigation, route }) => {
+  const { tripInfo } = route.params;
   const [eventList, setEventList] = useState([]);
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export const Feed = ({ navigation }) => {
       setEventList(events);
     });
   }, []);
+
+  console.log(tripInfo);
 
   return (
     <ScrollView>
@@ -35,52 +38,58 @@ export const Feed = ({ navigation }) => {
         </View>
         <View style={styles.container}>
           {eventList.map((event) => {
-            return (
-              <View
-                style={[styles.event, styles.shadowProp]}
-                key={event.event_id}
-              >
-                <Text style={styles.title}>{event.short_description}</Text>
-                <Image src={event.event_picture} style={styles.eventImage} />
-                <Text style={styles.text}>
-                  <Feather
-                    name="map-pin"
-                    size={18}
-                    color={colors.blue}
-                    padding={20}
+            console.log(event);
+            if (event.location.split(" ")[1] === tripInfo.country) {
+              return (
+                <View
+                  style={[styles.event, styles.shadowProp]}
+                  key={event.event_id}
+                >
+                  <Text style={styles.title}>{event.short_description}</Text>
+                  <Image
+                    source={{ uri: event.event_picture }}
+                    style={styles.eventImage}
                   />
-                  {event.location}
-                </Text>
-                <Text style={styles.text}>{event.country}</Text>
-                <Text style={styles.date}>
-                  {moment(event.date).format("dddd Do MMMM YYYY ")}
-                </Text>
-                <Text style={styles.date}>
-                  {moment(event.date).format("h:mm a")}
-                </Text>
-                <Text style={styles.body}>{event.description}</Text>
-                <View style={styles.buttonContainer}>
-                  <Pressable style={styles.button}>
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
+                  <Text style={styles.text}>
+                    <Feather
+                      name="map-pin"
+                      size={18}
+                      color={colors.blue}
+                      padding={20}
+                    />
+                    {event.location}
+                  </Text>
+                  <Text style={styles.text}>{event.country}</Text>
+                  <Text style={styles.date}>
+                    {moment(event.date).format("dddd Do MMMM YYYY ")}
+                  </Text>
+                  <Text style={styles.date}>
+                    {moment(event.date).format("h:mm a")}
+                  </Text>
+                  <Text style={styles.body}>{event.description}</Text>
+                  <View style={styles.buttonContainer}>
+                    <Pressable style={styles.button}>
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                      >
+                        <Text style={styles.buttonText}>Save </Text>
+                        <Feather name="bookmark" size={18} color="white" />
+                      </View>
+                    </Pressable>
+                    <Pressable
+                      style={styles.button}
+                      onPress={() =>
+                        navigation.navigate("SingleEvent", {
+                          event: event,
+                        })
+                      }
                     >
-                      <Text style={styles.buttonText}>Save </Text>
-                      <Feather name="bookmark" size={18} color="white" />
-                    </View>
-                  </Pressable>
-                  <Pressable
-                    style={styles.button}
-                    onPress={() =>
-                      navigation.navigate("SingleEvent", {
-                        event: event,
-                      })
-                    }
-                  >
-                    <Text style={styles.buttonText}> See Event</Text>
-                  </Pressable>
+                      <Text style={styles.buttonText}> See Event</Text>
+                    </Pressable>
+                  </View>
                 </View>
-              </View>
-            );
+              );
+            }
           })}
         </View>
       </View>

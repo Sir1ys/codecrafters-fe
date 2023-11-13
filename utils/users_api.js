@@ -43,3 +43,9 @@ export const addUserInterest = (userId, interestId) => {
       return response.data;
     });
 };
+
+export const getUserTrips = (userId) => {
+  return usersAPI
+    .get(`/${userId}/trips`)
+    .then((response) => response.data.trips);
+};

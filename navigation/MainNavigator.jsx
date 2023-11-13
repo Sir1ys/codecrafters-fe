@@ -5,6 +5,7 @@ import { Card } from "../components/Card";
 import { Image, StyleSheet } from "react-native";
 import UpdateAboutSection from "../components/UpdateAboutSection";
 import SingleEvent from "../components/SingleEvent";
+import { Feed } from "../components/Feed";
 import AddEvent from "../components/AddEvent";
 import Attending from "../components/Attending";
 
@@ -97,6 +98,11 @@ export const MainNavigator = () => {
         name="UpdateAbout"
         component={UpdateAboutSection}
         options={{ gestureEnabled: true, headerTitle: "Update Profile" }}
+      />
+      <Stack.Screen
+        name="EventsFeed"
+        component={Feed}
+        options={{ gestureEnabled: true, headerTitle: "Local Events" }}
       />
     </Stack.Navigator>
   );

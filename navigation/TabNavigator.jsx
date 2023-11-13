@@ -1,9 +1,10 @@
 import "react-native-gesture-handler";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { Feed } from "../components/Feed";
 import { Profile } from "../components/Profile";
 import { colors } from "../constants/colors";
+import TripsPage from "../components/TripsPage";
 import MyEvents from "../components/MyEvents";
 
 const Tab = createBottomTabNavigator();
@@ -12,28 +13,19 @@ export const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
-        name="Messages"
-        component={Feed}
+        name="Trips"
+        component={TripsPage}
         options={{
           headerMode: "none",
-          tabBarLabel: "Messages",
+          tabBarLabel: "Trips",
           tabBarIcon: ({ color, size }) => {
             return (
-              <Feather name="message-circle" size={24} color={colors.orange} />
+              <MaterialIcons
+                name="airplanemode-active"
+                size={24}
+                color={colors.orange}
+              />
             );
-          },
-          tabBarInactiveTintColor: colors.lightGrey,
-          tabBarActiveTintColor: colors.blue,
-        }}
-      />
-      <Tab.Screen
-        name="Menu"
-        component={Feed}
-        options={{
-          tabBarLabel: "Feed",
-
-          tabBarIcon: ({ color, size }) => {
-            return <Feather name="menu" size={24} color={colors.orange} />;
           },
           tabBarInactiveTintColor: colors.lightGrey,
           tabBarActiveTintColor: colors.blue,
