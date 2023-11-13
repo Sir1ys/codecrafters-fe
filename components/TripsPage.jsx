@@ -39,7 +39,9 @@ export default function TripsPage({ navigation }) {
         return (
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("EventsFeed", {});
+              navigation.navigate("EventsFeed", {
+                tripInfo: { country, start_date, end_date },
+              });
             }}
             style={styles.tripCard}
             key={trip_id}
