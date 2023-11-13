@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   ScrollView,
   Pressable,
   Image,
@@ -28,7 +27,15 @@ export const Feed = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.header}>Your Feed</Text>
+        <View>
+          <Text style={styles.header}>Your Feed</Text>
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate("AddEvent")}
+          >
+            <Feather name="plus" size={24} color={colors.white} />
+          </Pressable>
+        </View>
         <View style={styles.container}>
           {eventList.map((event) => {
             if (event.location.split(" ")[1] === tripInfo.country) {
@@ -38,15 +45,7 @@ export const Feed = ({ navigation, route }) => {
                   key={event.event_id}
                 >
                   <Text style={styles.title}>{event.short_description}</Text>
-                  <Image
-                    source={require("../assets/testImage.png")}
-                    style={{
-                      width: 250,
-                      height: 150,
-                      alignSelf: "center",
-                      marginVertical: 10,
-                    }}
-                  />
+                  <Image src={event.event_picture} style={styles.eventImage} />
                   <Text style={styles.text}>
                     <Feather
                       name="map-pin"
@@ -78,6 +77,17 @@ export const Feed = ({ navigation, route }) => {
                       onPress={() =>
                         navigation.navigate("SingleEvent", {
                           event_id: event.event_id,
+                          event: event,
+                        })
+                      }
+                    >
+                      <Text style={styles.buttonText}>Save </Text>
+                      <Feather name="bookmark" size={18} color="white" />
+                    </Pressable>
+                    <Pressable
+                      style={styles.button}
+                      onPress={() =>
+                        navigation.navigate("SingleEvent", {
                           event: event,
                         })
                       }
@@ -191,5 +201,11 @@ const styles = StyleSheet.create({
     fontFamily: "poppins_bold",
     color: `${colors.orange}`,
     fontSize: 12,
+  },
+  eventImage: {
+    width: 250,
+    height: 150,
+    alignSelf: "center",
+    marginVertical: 10,
   },
 });
