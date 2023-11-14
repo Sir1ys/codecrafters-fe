@@ -8,7 +8,8 @@ export default function MyEvents({ navigation }) {
     <View>
       <Text style={styles.header}>My Events</Text>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} 
+        onPress={() => navigation.navigate("SavedEvents")}>
           <View
             style={{
               flexDirection: "row",

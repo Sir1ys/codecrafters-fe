@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,13 +10,56 @@ import {
 import moment from "moment";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
-import { attendEvent } from "../api";
+import { attendEvent, fetchAttending, saveEvent, fetchSavedEvents } from "../api";
 import { UserContext } from "../contexts/UserContext";
+import {getUserTrips} from "../utils/users_api";
 
-export default function SingleEvent({ route }) {
+export default function SingleEvent({ navigation, route }) {
   const { event } = route.params;
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
+  const [isAttendDisabled, setIsAttendDisabled] = useState(false);
+  const [isSavedDisabled, setIsSavedDisabled] = useState(false);
+
+
+const handleAttend= () => {
+  attendEvent(event.event_id, user.user_id)
+  .then((result) => {
+    if(result.status === 201){
+      navigation.goBack();
+    }
+  })
+}
+
+const handleSave = () => {
+  saveEvent(event.event_id, user.user_id)
+  .then((result) => {
+    if(result.status === 201){
+      navigation.goBack();
+    }
+  })
+}
+
+useEffect(() => {
+  fetchAttending(user.user_id).then((result) => {
+    result.map((fetchedEvent) => {
+      if (fetchedEvent.event_id === event.event_id) {
+        setIsAttendDisabled(true);
+      }
+    })
+})},[])
+
+useEffect(() => {
+  fetchSavedEvents(user.user_id)
+  .then(result => {
+    result.data.eventsSaved.map((fetchedEvent) => {
+      if (fetchedEvent.event_id === event.event_id) {
+        setIsSavedDisabled(true);
+      }
+    })
+  })
+}, [])
+
 
   return (
     <ScrollView>
@@ -36,15 +79,17 @@ export default function SingleEvent({ route }) {
 
         <Text>Map:</Text>
         <View style={styles.buttonContainer}>
-          <Pressable style={styles.button}>
+          <Pressable style={ isAttendDisabled ? styles.disabled : styles.button}
+          disabled={isAttendDisabled}>
             <Text
               style={styles.buttonText}
-              onPress={attendEvent(event.event_id, user.user_id)}
+              onPress={handleAttend}
             >
               Attend
             </Text>
           </Pressable>
-          <Pressable style={styles.button}>
+          <Pressable onPress={handleSave} style={ isSavedDisabled ? styles.disabled : styles.button}
+          disabled={isSavedDisabled}>
             <Text style={styles.buttonText}>Save for later</Text>
           </Pressable>
         </View>
@@ -61,6 +106,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "white",
   },
+  disabled: {
+    color: colors.grey,
+    alignItems: "center",
+  justifyContent: "center",
+  paddingVertical: 12,
+  paddingHorizontal: 29,
+  borderRadius: 4,
+  elevation: 3,
+  backgroundColor: colors.lightGrey,
+  borderWidth: 1,
+  borderTopLeftRadius: 15,
+  borderTopRightRadius: 15,
+  borderBottomRightRadius: 15,
+  borderBottomLeftRadius: 15,
+  paddingBottom: 10,
+  marginBottom: 10,
+  marginRight: 10,
+  marginLeft: 10,
+},
   button: {
     alignItems: "center",
     justifyContent: "center",

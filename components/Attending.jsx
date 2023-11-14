@@ -13,15 +13,15 @@ import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import moment from "moment";
 
-export default function Attending({ navigation }) {
-  const [eventsAttending, setEventsAttending] = useState([]);
+export default function Attending({ navigation } ) {
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
+  const [eventsAttending, setEventsAttending] = useState([]);
+
 
   useEffect(() => {
     fetchAttending(user.user_id).then((result) => {
-      console.log(result.data.events);
-      setEventsAttending(result.data.events);
+      setEventsAttending(result);
     });
   }, []);
 
@@ -33,6 +33,7 @@ export default function Attending({ navigation }) {
         </View>
         <View style={styles.container}>
           {eventsAttending.map((event) => {
+            console.log(event, "event")
             return (
               <View
                 style={[styles.event, styles.shadowProp]}

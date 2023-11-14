@@ -11,8 +11,6 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { colors } from "../constants/colors";
 import { fetchLatLong, postTrip } from "../api";
 import { UserContext } from "../contexts/UserContext";
-import { getFlagCountryByName } from "../utils/countries_api";
-import { useIsFocused } from "@react-navigation/native";
 
 export default function AddTrip({ navigation, route }) {
   const [country, setCountry] = useState("");
@@ -21,23 +19,26 @@ export default function AddTrip({ navigation, route }) {
   const [user, setUser] = userState;
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const { setTrips } = route.params;
-  const { setFlags } = route.params;
+  const [showFromDatePicker, setShowFromDatePicker] = useState(false);
+  const [showToDatePicker, setShowToDatePicker] = useState(false);
 
-  const toggleDatePicker = () => {
-    setShowDatePicker(!showDatePicker);
+  const toggleFromDatePicker = () => {
+    setShowFromDatePicker(!showFromDatePicker);
+  };
+
+  const toggleToDatePicker = () => {
+    setShowToDatePicker(!showToDatePicker);
   };
 
   const onFromDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || fromDate;
-    setShowDatePicker(Platform.OS === "ios");
+    setShowFromDatePicker(Platform.OS === "ios");
     setFromDate(currentDate);
   };
 
   const onToDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || toDate;
-    setShowDatePicker(Platform.OS === "ios");
+    setShowToDatePicker(Platform.OS === "ios");
     setToDate(currentDate);
   };
 
@@ -74,22 +75,13 @@ export default function AddTrip({ navigation, route }) {
           coordinates[1]
         );
       })
-      .then((trip) => {
-        const newFlag = getFlagCountryByName(trip.data.trip.country)
-        return Promise.all([  setTrips((previousTrips) => {
-          return [...previousTrips, trip.data.trip]
-        }),
-        setFlags((previousFlags) => {
-          return [...previousFlags, newFlag]
-        })])
-      })
       .then(() => {
         navigation.navigate("Home");
       })
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.header}>Add a Trip</Text>
 
       <Text style={styles.text}>Country</Text>
@@ -113,8 +105,8 @@ export default function AddTrip({ navigation, route }) {
 
       <View>
         <Text style={styles.text}> From:</Text>
-        {!showDatePicker && (
-          <Pressable onPress={toggleDatePicker}>
+        {!showFromDatePicker && (
+          <Pressable onPress={toggleFromDatePicker}>
             <TextInput
               style={styles.text}
               placeholder="Saturday Jan 01 2023"
@@ -124,7 +116,7 @@ export default function AddTrip({ navigation, route }) {
           </Pressable>
         )}
 
-        {showDatePicker && (
+        {showFromDatePicker && (
           <DateTimePicker
             mode="date"
             display="calendar"
@@ -133,8 +125,8 @@ export default function AddTrip({ navigation, route }) {
           />
         )}
         <Text style={styles.text}> To:</Text>
-        {!showDatePicker && (
-          <Pressable onPress={toggleDatePicker}>
+        {!showToDatePicker && (
+          <Pressable onPress={toggleToDatePicker}>
             <TextInput
               style={styles.text}
               placeholder="Saturday Jan 07 2023"
@@ -143,7 +135,7 @@ export default function AddTrip({ navigation, route }) {
             />
           </Pressable>
         )}
-        {showDatePicker && (
+        {showToDatePicker && (
           <DateTimePicker
             mode="date"
             display="calendar"

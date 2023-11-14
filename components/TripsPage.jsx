@@ -4,7 +4,6 @@ import { UserContext } from "../contexts/UserContext";
 import { getUserTrips } from "../utils/users_api";
 import { getFlagCountryByName } from "../utils/countries_api";
 import { colors } from "../constants/colors";
-import { dateFromTimestamp, friendlyDate } from "../utils/dates";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
@@ -17,7 +16,7 @@ export default function TripsPage({ navigation }) {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    getUserTrips(user.user_id)
+    isFocused && getUserTrips(user.user_id)
       .then((tripsData) => {
         setTrips(tripsData);
         return tripsData;

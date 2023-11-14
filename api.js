@@ -11,21 +11,27 @@ export const fetchEvents = () => {
 };
 
 export const attendEvent = (event_id, user_id) => {
-  return api.post(`/users/${user_id}/my-events/${event_id}`);
+  return api.post(`/users/${user_id}/attending-events/${event_id}`);
 };
+
+export const saveEvent = (event_id, user_id) => {
+  return api.post(`users/${user_id}/events-saved/${event_id}`);
+}
 
 export const fetchAttending = (user_id) => {
   return api
-    .get(`/users/${user_id}/my-events`)
+    .get(`/users/${user_id}/attending-events`)
     .then((response) => {
       return response.data;
     })
     .then((data) => {
-      return data.eventsUsers.map((event) => {
-        return api.get(`/events/${event.event_id}`);
-      });
+   return data.events
     });
 };
+
+export const fetchSavedEvents = (user_id) => {
+  return api.get(`/users/${user_id}/events-saved`)
+}
 
 export const postTrip = (
   creator_id,
