@@ -7,7 +7,7 @@ import {
   Pressable,
   Image,
 } from "react-native";
-import { fetchEvents } from "../api";
+import { fetchEvents, saveEvent } from "../api";
 import moment from "moment";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
@@ -16,13 +16,15 @@ export const Feed = ({ navigation, route }) => {
   const { tripInfo } = route.params;
   const [eventList, setEventList] = useState([]);
 
+  const handleSave = () => {
+    saveEvent(event.event_id, user.user_id)
+  }
+
   useEffect(() => {
     fetchEvents().then(({ events }) => {
       setEventList(events);
     });
   }, []);
-
-  console.log(tripInfo);
 
   return (
     <ScrollView>
@@ -38,7 +40,6 @@ export const Feed = ({ navigation, route }) => {
         </View>
         <View style={styles.container}>
           {eventList.map((event) => {
-            console.log(event);
             if (event.location.split(" ")[1] === tripInfo.country) {
               return (
                 <View
@@ -68,14 +69,6 @@ export const Feed = ({ navigation, route }) => {
                   </Text>
                   <Text style={styles.body}>{event.description}</Text>
                   <View style={styles.buttonContainer}>
-                    <Pressable style={styles.button}>
-                      <View
-                        style={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <Text style={styles.buttonText}>Save </Text>
-                        <Feather name="bookmark" size={18} color="white" />
-                      </View>
-                    </Pressable>
                     <Pressable
                       style={styles.button}
                       onPress={() =>
@@ -164,7 +157,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginTop: 10,
   },
   title: {

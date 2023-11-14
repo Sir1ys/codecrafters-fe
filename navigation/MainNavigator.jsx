@@ -8,10 +8,14 @@ import SingleEvent from "../components/SingleEvent";
 import { Feed } from "../components/Feed";
 import AddEvent from "../components/AddEvent";
 import Attending from "../components/Attending";
+import AddTrip from "../components/AddTrip";
+import SavedEvents from "../components/SavedEvents";
+import { useState } from "react";
 
 const Stack = createStackNavigator();
 
 export const MainNavigator = () => {
+  const [eventsAttending, setEventsAttending] = useState([]);
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -78,8 +82,42 @@ export const MainNavigator = () => {
         }}
       />
       <Stack.Screen
+        name="AddTrip"
+        component={AddTrip}
+        options={{
+          gestureEnabled: true,
+          headerMode: "screen",
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
         name="Attending"
         component={Attending}
+        options={{
+          gestureEnabled: true,
+          headerMode: "screen",
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="SavedEvents"
+        component={SavedEvents}
         options={{
           gestureEnabled: true,
           headerMode: "screen",
