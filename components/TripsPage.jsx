@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable, ScrollView } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import { getUserTrips } from "../utils/users_api";
 import { getFlagCountryByName } from "../utils/countries_api";
@@ -7,12 +7,14 @@ import { colors } from "../constants/colors";
 import { dateFromTimestamp, friendlyDate } from "../utils/dates";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function TripsPage({ navigation }) {
   const [trips, setTrips] = useState([]);
   const [flags, setFlags] = useState([]);
   const { userState } = useContext(UserContext);
   const user = userState[0];
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     getUserTrips(user.user_id)
@@ -30,14 +32,15 @@ export default function TripsPage({ navigation }) {
         setFlags(flagData);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [isFocused]);
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.header}>Your Trips</Text>
       <Pressable
         style={styles.button}
-        onPress={() => navigation.navigate("AddTrip")}
+        onPress={() => navigation.navigate("AddTrip", {setTrips, setFlags})}
       >
         <Feather name="plus" size={24} color={colors.white} />
       </Pressable>
@@ -74,6 +77,7 @@ export default function TripsPage({ navigation }) {
         );
       })}
     </View>
+    </ScrollView>
   );
 }
 

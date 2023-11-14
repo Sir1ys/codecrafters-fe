@@ -36,17 +36,6 @@ export const postTrip = (
   latitude,
   longitude
 ) => {
-  console.log({
-    trip: {
-      creator_id: creator_id,
-      start_date: start_date,
-      end_date: end_date,
-      country: country,
-      location: city,
-      latitude: latitude,
-      longitude: longitude,
-    },
-  });
   return api.post(`/users/${creator_id}/trips`, {
     trip: {
       creator_id: creator_id,

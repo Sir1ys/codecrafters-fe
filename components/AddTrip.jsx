@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,18 +11,19 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { colors } from "../constants/colors";
 import { fetchLatLong, postTrip } from "../api";
 import { UserContext } from "../contexts/UserContext";
+import { getFlagCountryByName } from "../utils/countries_api";
+import { useIsFocused } from "@react-navigation/native";
 
-export default function AddTrip() {
+export default function AddTrip({ navigation, route }) {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const { setTrips } = route.params;
+  const { setFlags } = route.params;
 
   const toggleDatePicker = () => {
     setShowDatePicker(!showDatePicker);
@@ -61,24 +62,30 @@ export default function AddTrip() {
   };
 
   const handleSubmit = () => {
-    fetchLatLong(city)
-      .then((coordinates) => {
-        console.log(typeof coordinates[0]);
-        setLongitude(coordinates[0]);
-        setLatitude(coordinates[1]);
-      })
-      .then(() => {
-        console.log(longitude, latitude);
-        postTrip(
+    return fetchLatLong(city)
+      .then((coordinates) => {   
+        return postTrip(
           user.user_id,
           fromDate,
           toDate,
           country,
           city,
-          latitude,
-          longitude
+          coordinates[0],
+          coordinates[1]
         );
-      });
+      })
+      .then((trip) => {
+        const newFlag = getFlagCountryByName(trip.data.trip.country)
+        return Promise.all([  setTrips((previousTrips) => {
+          return [...previousTrips, trip.data.trip]
+        }),
+        setFlags((previousFlags) => {
+          return [...previousFlags, newFlag]
+        })])
+      })
+      .then(() => {
+        navigation.navigate("Home");
+      })
   };
 
   return (
