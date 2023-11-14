@@ -7,23 +7,23 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { fetchAttending } from "../api";
+import { deleteAttending, fetchAttending } from "../api";
 import { UserContext } from "../contexts/UserContext";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import moment from "moment";
 
-export default function Attending({ navigation }) {
-  const [eventsAttending, setEventsAttending] = useState([]);
+export default function Attending({ navigation } ) {
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
+  const [eventsAttending, setEventsAttending] = useState([]);
+
 
   useEffect(() => {
     fetchAttending(user.user_id).then((result) => {
-      console.log(result.data.events);
-      setEventsAttending(result.data.events);
+      setEventsAttending(result);
     });
-  }, []);
+  }, [eventsAttending]);
 
   return (
     <ScrollView>
@@ -68,6 +68,9 @@ export default function Attending({ navigation }) {
                   >
                     <Text style={styles.buttonText}>See Event</Text>
                   </Pressable>
+                  <Pressable onPress={()=> {deleteAttending(event.event_id, user.user_id)}} style={styles.cancelButton}>
+                    <Text style={styles.buttonText}>Cancel</Text>
+                  </Pressable>
                 </View>
               </View>
             );
@@ -94,6 +97,24 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    paddingBottom: 10,
+    marginBottom: 10,
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  cancelButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 29,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: colors.orange,
     borderWidth: 1,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -134,7 +155,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
     marginTop: 10,
   },
   buttonText: {
