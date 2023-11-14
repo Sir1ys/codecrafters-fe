@@ -12,11 +12,22 @@ import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import { attendEvent } from "../api";
 import { UserContext } from "../contexts/UserContext";
+import MapView, { Marker } from "react-native-maps";
 
 export default function SingleEvent({ route }) {
   const { event } = route.params;
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
+  const [mapLat, setMapLat] = useState(event.latitude);
+  const [mapLong, setMapLong] = useState(event.longitude);
+
+  const locationData = [
+    {
+      latitude: event.latitude,
+      longitude: event.longitude,
+      weight: 1,
+    },
+  ];
 
   return (
     <ScrollView>
@@ -48,6 +59,28 @@ export default function SingleEvent({ route }) {
             <Text style={styles.buttonText}>Save for later</Text>
           </Pressable>
         </View>
+
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: mapLat,
+            longitude: mapLong,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          {locationData.map((data, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: data.latitude,
+                longitude: data.longitude,
+              }}
+              title={event.short_description}
+              description={event.location}
+            />
+          ))}
+        </MapView>
       </View>
     </ScrollView>
   );
@@ -122,6 +155,12 @@ const styles = StyleSheet.create({
   eventImage: {
     width: 350,
     height: 150,
+    alignSelf: "center",
+    marginVertical: 10,
+  },
+  map: {
+    width: 385,
+    height: 330,
     alignSelf: "center",
     marginVertical: 10,
   },

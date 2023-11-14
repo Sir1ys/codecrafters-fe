@@ -31,7 +31,8 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.19.6",
     "validate.js": "^0.13.1",
-    "expo-font": "~11.4.0"
+    "expo-font": "~11.4.0",
+    "react-native-maps": "1.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
