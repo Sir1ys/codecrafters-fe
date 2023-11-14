@@ -8,6 +8,7 @@ import SingleEvent from "../components/SingleEvent";
 import { Feed } from "../components/Feed";
 import AddEvent from "../components/AddEvent";
 import Attending from "../components/Attending";
+import Comments from "../components/Comments";
 
 const Stack = createStackNavigator();
 
@@ -102,6 +103,11 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="EventsFeed"
         component={Feed}
+        options={{ gestureEnabled: true, headerTitle: "Local Events" }}
+      />
+      <Stack.Screen
+        name="EventComments"
+        component={Comments}
         options={{ gestureEnabled: true, headerTitle: "Local Events" }}
       />
     </Stack.Navigator>

@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import moment from "moment";
 import { colors } from "../constants/colors";
-import { Feather } from "@expo/vector-icons";
+import { Feather, FontAwesome } from "@expo/vector-icons";
 import { attendEvent } from "../api";
 import { UserContext } from "../contexts/UserContext";
 import MapView, { Marker } from "react-native-maps";
 
-export default function SingleEvent({ route }) {
+export default function SingleEvent({ route, navigation }) {
   const { event } = route.params;
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
@@ -57,6 +57,17 @@ export default function SingleEvent({ route }) {
           </Pressable>
           <Pressable style={styles.button}>
             <Text style={styles.buttonText}>Save for later</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("EventComments", {
+                user,
+                eventId: event.event_id,
+              });
+            }}
+          >
+            <FontAwesome name="comment" size={24} color="black" />
           </Pressable>
         </View>
 

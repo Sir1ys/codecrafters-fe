@@ -22,8 +22,6 @@ export const Feed = ({ navigation, route }) => {
     });
   }, []);
 
-  console.log(tripInfo);
-
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -38,7 +36,6 @@ export const Feed = ({ navigation, route }) => {
         </View>
         <View style={styles.container}>
           {eventList.map((event) => {
-            console.log(event);
             if (event.location.split(" ")[1] === tripInfo.country) {
               return (
                 <View
