@@ -8,6 +8,7 @@ import SingleEvent from "../components/SingleEvent";
 import { Feed } from "../components/Feed";
 import AddEvent from "../components/AddEvent";
 import Attending from "../components/Attending";
+import Location from "../components/Location";
 import AddTrip from "../components/AddTrip";
 import SavedEvents from "../components/SavedEvents";
 import { useState } from "react";
@@ -141,6 +142,11 @@ export const MainNavigator = () => {
         name="EventsFeed"
         component={Feed}
         options={{ gestureEnabled: true, headerTitle: "Local Events" }}
+      />
+      <Stack.Screen
+        name="Location"
+        component={Location}
+        options={{ gestureEnabled: true, headerTitle: "Event location" }}
       />
     </Stack.Navigator>
   );
