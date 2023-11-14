@@ -12,6 +12,7 @@ import Location from "../components/Location";
 import AddTrip from "../components/AddTrip";
 import SavedEvents from "../components/SavedEvents";
 import { useState } from "react";
+import Comments from "../components/Comments";
 
 const Stack = createStackNavigator();
 
@@ -147,6 +148,11 @@ export const MainNavigator = () => {
         name="Location"
         component={Location}
         options={{ gestureEnabled: true, headerTitle: "Event location" }}
+      />
+      <Stack.Screen
+        name="EventComments"
+        component={Comments}
+        options={{ gestureEnabled: true, headerTitle: "Local Events" }}
       />
     </Stack.Navigator>
   );

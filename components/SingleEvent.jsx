@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import moment from "moment";
 import { colors } from "../constants/colors";
-import { Feather } from "@expo/vector-icons";
+import { Feather, FontAwesome } from "@expo/vector-icons";
 import { attendEvent, fetchAttending, saveEvent, fetchSavedEvents } from "../api";
 import { UserContext } from "../contexts/UserContext";
 import {getUserTrips} from "../utils/users_api";
@@ -102,6 +102,17 @@ useEffect(() => {
           <Pressable onPress={handleSave} style={ isSavedDisabled ? styles.disabled : styles.button}
           disabled={isSavedDisabled}>
             <Text style={styles.buttonText}>Save for later</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("EventComments", {
+                user,
+                eventId: event.event_id,
+              });
+            }}
+          >
+            <FontAwesome name="comment" size={24} color="black" />
           </Pressable>
         </View>
 
