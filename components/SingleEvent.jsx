@@ -13,6 +13,8 @@ import { Feather } from "@expo/vector-icons";
 import { attendEvent, fetchAttending, saveEvent, fetchSavedEvents } from "../api";
 import { UserContext } from "../contexts/UserContext";
 import {getUserTrips} from "../utils/users_api";
+import MapView, { Marker } from "react-native-maps";
+
 
 export default function SingleEvent({ navigation, route }) {
   const { event } = route.params;
@@ -20,6 +22,8 @@ export default function SingleEvent({ navigation, route }) {
   const [user, setUser] = userState;
   const [isAttendDisabled, setIsAttendDisabled] = useState(false);
   const [isSavedDisabled, setIsSavedDisabled] = useState(false);
+  const [mapLat, setMapLat] = useState(event.latitude);
+  const [mapLong, setMapLong] = useState(event.longitude);
 
 
 const handleAttend= () => {
@@ -60,6 +64,13 @@ useEffect(() => {
   })
 }, [])
 
+  const locationData = [
+    {
+      latitude: event.latitude,
+      longitude: event.longitude,
+      weight: 1,
+    },
+  ];
 
   return (
     <ScrollView>
@@ -93,6 +104,28 @@ useEffect(() => {
             <Text style={styles.buttonText}>Save for later</Text>
           </Pressable>
         </View>
+
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: mapLat,
+            longitude: mapLong,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          {locationData.map((data, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: data.latitude,
+                longitude: data.longitude,
+              }}
+              title={event.short_description}
+              description={event.location}
+            />
+          ))}
+        </MapView>
       </View>
     </ScrollView>
   );
@@ -186,6 +219,12 @@ const styles = StyleSheet.create({
   eventImage: {
     width: 350,
     height: 150,
+    alignSelf: "center",
+    marginVertical: 10,
+  },
+  map: {
+    width: 385,
+    height: 330,
     alignSelf: "center",
     marginVertical: 10,
   },
