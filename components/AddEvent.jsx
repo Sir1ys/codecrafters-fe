@@ -19,7 +19,7 @@ export default function AddEvent({ navigation }) {
   const [user, setUser] = userState;
   const { user_id } = user;
   const [titleText, setTitleText] = useState("");
-  const [location, setLocation] = useState("Set location ...");
+  const [location, setLocation] = useState("Click to add location");
   const [description, setDescription] = useState("");
   const [eventPicture, setEventPicture] = useState("");
   const [date, setDate] = useState(new Date());
@@ -70,9 +70,9 @@ export default function AddEvent({ navigation }) {
 
   return (
     <ScrollView>
-      <View>
-        <Text style={styles.header}>Add a Post</Text>
-        <Text style={styles.text}>Location</Text>
+      <View style={styles.container}>
+        <Text style={styles.header}>Add Event</Text>
+        <Text style={styles.title}>Location</Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Location", {
@@ -81,11 +81,13 @@ export default function AddEvent({ navigation }) {
               setLongitude,
             });
           }}
+          style={styles.locationContainer}
         >
-          <Text>{location}</Text>
+          <Text style={styles.locationText}>{location}</Text>
         </TouchableOpacity>
-        <Text style={styles.text}>Event name:</Text>
+        <Text style={styles.title}>Event name:</Text>
         <TextInput
+          style={styles.text}
           autocapitalize="words"
           placeholder="e.g Trip to the Markets"
           value={titleText}
@@ -93,18 +95,18 @@ export default function AddEvent({ navigation }) {
             setTitleText(text);
           }}
         />
-
-        <Text style={styles.text}>Event Image</Text>
+        <Text style={styles.title}>Event Image</Text>
         <TextInput
+          style={styles.text}
           placeholder="Insert Image Url "
           value={eventPicture}
           onChangeText={(text) => {
             setEventPicture(text);
           }}
         />
-
-        <Text style={styles.text}>Description:</Text>
+        <Text style={styles.title}>Description:</Text>
         <TextInput
+          style={styles.text}
           placeholder="e.g 'join us for a trip to the markets  "
           value={description}
           onChangeText={(text) => {
@@ -112,7 +114,7 @@ export default function AddEvent({ navigation }) {
           }}
         />
         <View>
-          <Text style={styles.text}> Event Date:</Text>
+          <Text style={styles.title}> Event Date:</Text>
           {!showDatePicker && (
             <Pressable onPress={toggleDatePicker}>
               <TextInput
@@ -133,7 +135,7 @@ export default function AddEvent({ navigation }) {
             />
           )}
 
-          <Text style={styles.text}> Event Time: </Text>
+          <Text style={styles.title}> Event Time: </Text>
           {!showTimePicker && (
             <Pressable onPress={toggleTimePicker}>
               <TextInput
@@ -147,6 +149,7 @@ export default function AddEvent({ navigation }) {
 
           {showTimePicker && (
             <DateTimePicker
+              style={styles.text}
               mode="time"
               display="spinner"
               value={time}
@@ -154,27 +157,30 @@ export default function AddEvent({ navigation }) {
             />
           )}
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            postEvent({
-              creator_id: user_id,
-              date,
-              short_description: titleText,
-              description: description,
-              location,
-              latitude,
-              longitude,
-              event_picture: eventPicture,
-            }).then((event) => {
-              console.log(event);
-              navigation
-                .navigate("SingleEvent", { event })
-                .catch((err) => console.log(err));
-            });
-          }}
-        >
-          <Text>Submit</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              postEvent({
+                creator_id: user_id,
+                date,
+                short_description: titleText,
+                description: description,
+                location,
+                latitude,
+                longitude,
+                event_picture: eventPicture,
+              }).then((event) => {
+                console.log(event);
+                navigation
+                  .navigate("SingleEvent", { event })
+                  .catch((err) => console.log(err));
+              });
+            }}
+            style={styles.submitButton}
+          >
+            <Text style={styles.submitButtonText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -183,13 +189,11 @@ export default function AddEvent({ navigation }) {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
-    fontSize: 20,
+    fontSize: 15,
     fontStyle: "italic",
     marginBottom: 5,
-    paddingTop: 10,
-    paddingBottom: 10,
   },
   header: {
     fontFamily: "poppins_bold",
@@ -198,5 +202,65 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flexWrap: "wrap",
     padding: 5,
+  },
+  title: {
+    fontFamily: "poppins_bold",
+    color: `${colors.lightBlack}`,
+    fontSize: 15,
+    alignSelf: "center",
+    textAlign: "center",
+  },
+  container: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    marginVertical: 10,
+    padding: 20,
+    backgroundColor: `${colors.white}`,
+    shadowColor: "#219C90",
+  },
+  title: { fontFamily: "poppins_bold", color: colors.lightBlack, fontSize: 15 },
+
+  submitButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
+  submitButtonText: {
+    fontSize: 13,
+    lineHeight: 15,
+    fontWeight: "poppins_bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+  locationContainer: {
+    backgroundColor: colors.primary,
+    padding: 2,
+    borderRadius: 8,
+    marginTop: 5,
+    alignItems: "center",
+  },
+  locationText: {
+    fontFamily: "regular",
+    color: colors.white,
+    fontSize: 12,
+    textAlign: "center",
   },
 });

@@ -2,7 +2,7 @@ import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TabNavigator } from "./TabNavigator";
 import { Card } from "../components/Card";
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import UpdateAboutSection from "../components/UpdateAboutSection";
 import SingleEvent from "../components/SingleEvent";
 import { Feed } from "../components/Feed";
@@ -26,10 +26,12 @@ export const MainNavigator = () => {
         options={{
           headerMode: "screen",
           title: (
-            <Image
-              style={styles.tinyLogo}
-              source={require("../assets/tinyLogo.png")}
-            />
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
           ),
           headerStyle: {
             backgroundColor: "#EE9322",
@@ -39,8 +41,10 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
+
       <Stack.Screen
         name="Card"
         component={Card}
@@ -142,12 +146,39 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="EventsFeed"
         component={Feed}
-        options={{ gestureEnabled: true, headerTitle: "Local Events" }}
+        options={{
+          gestureEnabled: true,
+          headerTitle: "Local Events",
+          gestureEnabled: true,
+          headerMode: "screen",
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
       />
       <Stack.Screen
         name="Location"
         component={Location}
-        options={{ gestureEnabled: true, headerTitle: "Event location" }}
+        options={{
+          gestureEnabled: true,
+          headerTitle: "Event location",
+          headerMode: "screen",
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
       />
       <Stack.Screen
         name="EventComments"
@@ -159,8 +190,16 @@ export const MainNavigator = () => {
 };
 
 const styles = StyleSheet.create({
+  logoContainer: {
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
   tinyLogo: {
-    width: 100,
+    width: 120,
     height: 50,
   },
 });
