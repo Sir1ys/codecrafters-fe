@@ -14,7 +14,7 @@ import { Feather } from "@expo/vector-icons";
 import { fetchSavedEvents } from "../api";
 import { UserContext } from "../contexts/UserContext";
 
-export default function SavedEvents({route} ) {
+export default function SavedEvents({navigation} ) {
     const [fetchedSavedEvents, setFetchedSavedEvents] = useState([]);
     const { userState } = useContext(UserContext);
     const [user, setUser] = userState;
@@ -68,7 +68,11 @@ export default function SavedEvents({route} ) {
                           })
                         }
                       >
-                        <Text style={styles.buttonText}>See Event</Text>
+                        <Text style={styles.buttonText} onPress={() =>
+                      navigation.navigate("SingleEvent", {
+                        event: event,
+                      })
+                    }>See Event</Text>
                       </Pressable>
                       <Pressable>
                       <Text
