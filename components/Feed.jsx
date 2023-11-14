@@ -39,7 +39,7 @@ export const Feed = ({ navigation, route }) => {
         <View style={styles.container}>
           {eventList.map((event) => {
             console.log(event);
-            if (event.location.split(" ")[1] === tripInfo.country) {
+            if (event.location.split(" ").pop() === tripInfo.country) {
               return (
                 <View
                   style={[styles.event, styles.shadowProp]}

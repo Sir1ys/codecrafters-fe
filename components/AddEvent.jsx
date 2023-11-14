@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -7,24 +6,26 @@ import {
   StyleSheet,
   Pressable,
   Platform,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { colors } from "../constants/colors";
-import { Input } from "./Input";
-import { Feather } from "@expo/vector-icons";
-import Location from "./Location";
+import { UserContext } from "../contexts/UserContext";
+import { postEvent } from "../utils/events_api";
 
 export default function AddEvent({ navigation }) {
+  const { userState } = useContext(UserContext);
+  const [user, setUser] = userState;
+  const { user_id } = user;
   const [titleText, setTitleText] = useState("");
   const [location, setLocation] = useState("Set location ...");
   const [description, setDescription] = useState("");
-  const [numAttending, setnumAttending] = useState("");
   const [eventPicture, setEventPicture] = useState("");
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
@@ -74,7 +75,11 @@ export default function AddEvent({ navigation }) {
         <Text style={styles.text}>Location</Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Location", { setLocation });
+            navigation.navigate("Location", {
+              setLocation,
+              setLatitude,
+              setLongitude,
+            });
           }}
         >
           <Text>{location}</Text>
@@ -104,16 +109,6 @@ export default function AddEvent({ navigation }) {
           value={description}
           onChangeText={(text) => {
             setDescription(text);
-          }}
-        />
-
-        <Text style={styles.text}>Max number of attendees:</Text>
-        <TextInput
-          placeholder="e.g. 12"
-          keyboardType="numeric"
-          value={numAttending.toString()}
-          onChangeText={(numeric) => {
-            setnumAttending(parseInt(numeric) || 0);
           }}
         />
         <View>
@@ -159,6 +154,27 @@ export default function AddEvent({ navigation }) {
             />
           )}
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            postEvent({
+              creator_id: user_id,
+              date,
+              short_description: titleText,
+              description: description,
+              location,
+              latitude,
+              longitude,
+              event_picture: eventPicture,
+            }).then((event) => {
+              console.log(event);
+              navigation
+                .navigate("SingleEvent", { event })
+                .catch((err) => console.log(err));
+            });
+          }}
+        >
+          <Text>Submit</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

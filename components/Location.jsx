@@ -4,7 +4,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { colors } from "../constants/colors";
 
 export default function Location({ navigation, route }) {
-  const { setLocation } = route.params;
+  const { setLocation, setLatitude, setLongitude } = route.params;
   return (
     <View style={{ ...StyleSheet.absoluteFillObject, ...styles.googleAuto }}>
       <GooglePlacesAutocomplete
@@ -12,10 +12,8 @@ export default function Location({ navigation, route }) {
         query={{ key: process.env.GOOGLE_MAPS_API_KEY }}
         fetchDetails={true}
         onPress={(data, details = null) => {
-          console.log(data);
-          console.log(details);
-          console.log(data.description);
-          console.log(details.geometry);
+          setLatitude(details.geometry.location.lat);
+          setLongitude(details.geometry.location.lng);
           setLocation(data.description);
           navigation.goBack();
         }}
