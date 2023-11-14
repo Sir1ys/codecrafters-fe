@@ -11,22 +11,19 @@ import {
 import moment from "moment";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
-import { fetchSavedEvents } from "../api";
+import { fetchSavedEvents, deleteSaved } from "../api";
 import { UserContext } from "../contexts/UserContext";
 
 export default function SavedEvents({navigation} ) {
     const [fetchedSavedEvents, setFetchedSavedEvents] = useState([]);
     const { userState } = useContext(UserContext);
     const [user, setUser] = userState;
-
-    const handleAttend= () => {
-        attendEvent(event.event_id, user.user_id)
-      }
-
+    
       useEffect(() => {
         fetchSavedEvents(user.user_id).then((result) => {
           setFetchedSavedEvents(result.data.eventsSaved);
-      })},[])
+      })},[fetchedSavedEvents])
+
     return (
         <ScrollView>
           <View style={styles.container}>
@@ -74,14 +71,9 @@ export default function SavedEvents({navigation} ) {
                       })
                     }>See Event</Text>
                       </Pressable>
-                      <Pressable>
-                      <Text
-              style={styles.buttonText}
-              onPress={handleAttend}
-            >
-              Attend
-            </Text>
-                      </Pressable>
+                      <Pressable onPress={()=> {deleteSaved(event.event_id, user.user_id)}} style={styles.cancelButton}>
+                    <Text style={styles.buttonText}>Delete</Text>
+                  </Pressable>
                     </View>
                   </View>
                 );
@@ -108,6 +100,24 @@ export default function SavedEvents({navigation} ) {
         borderRadius: 4,
         elevation: 3,
         backgroundColor: colors.primary,
+        borderWidth: 1,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        paddingBottom: 10,
+        marginBottom: 10,
+        marginRight: 10,
+        marginLeft: 10,
+      },
+      cancelButton: {
+        alignItems: "center",
+        justifyContent: "center",
+        paddingVertical: 12,
+        paddingHorizontal: 29,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: colors.orange,
         borderWidth: 1,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,

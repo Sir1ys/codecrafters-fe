@@ -64,3 +64,13 @@ export const fetchLatLong = (city) => {
       return response.data.features[0].geometry.coordinates;
     });
 };
+
+export const deleteAttending = (event_id, user_id) => {
+  return api
+  .delete(`/users/${user_id}/attending-events/${event_id}`)
+}
+
+export const deleteSaved = (event_id, user_id) => {
+  return api
+  .delete(`/users/${user_id}/events-saved/${event_id}`)
+}

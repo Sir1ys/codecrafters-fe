@@ -7,7 +7,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { fetchAttending } from "../api";
+import { deleteAttending, fetchAttending } from "../api";
 import { UserContext } from "../contexts/UserContext";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
@@ -23,7 +23,7 @@ export default function Attending({ navigation } ) {
     fetchAttending(user.user_id).then((result) => {
       setEventsAttending(result);
     });
-  }, []);
+  }, [eventsAttending]);
 
   return (
     <ScrollView>
@@ -33,7 +33,6 @@ export default function Attending({ navigation } ) {
         </View>
         <View style={styles.container}>
           {eventsAttending.map((event) => {
-            console.log(event, "event")
             return (
               <View
                 style={[styles.event, styles.shadowProp]}
@@ -69,6 +68,9 @@ export default function Attending({ navigation } ) {
                   >
                     <Text style={styles.buttonText}>See Event</Text>
                   </Pressable>
+                  <Pressable onPress={()=> {deleteAttending(event.event_id, user.user_id)}} style={styles.cancelButton}>
+                    <Text style={styles.buttonText}>Cancel</Text>
+                  </Pressable>
                 </View>
               </View>
             );
@@ -95,6 +97,24 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    paddingBottom: 10,
+    marginBottom: 10,
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  cancelButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 29,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: colors.orange,
     borderWidth: 1,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -135,7 +155,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
     marginTop: 10,
   },
   buttonText: {
