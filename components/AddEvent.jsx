@@ -9,6 +9,7 @@ import {
   Platform,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { colors } from "../constants/colors";
@@ -16,9 +17,9 @@ import { Input } from "./Input";
 import { Feather } from "@expo/vector-icons";
 import Location from "./Location";
 
-export default function AddEvent() {
+export default function AddEvent({ navigation }) {
   const [titleText, setTitleText] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Set location ...");
   const [description, setDescription] = useState("");
   const [numAttending, setnumAttending] = useState("");
   const [eventPicture, setEventPicture] = useState("");
@@ -70,8 +71,14 @@ export default function AddEvent() {
     <ScrollView>
       <View>
         <Text style={styles.header}>Add a Post</Text>
-
-        <Location />
+        <Text style={styles.text}>Location</Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Location", { setLocation });
+          }}
+        >
+          <Text>{location}</Text>
+        </TouchableOpacity>
         <Text style={styles.text}>Event name:</Text>
         <TextInput
           autocapitalize="words"
@@ -165,8 +172,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontStyle: "italic",
     marginBottom: 5,
-    paddingTop: 40,
-    paddingBottom: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   header: {
     fontFamily: "poppins_bold",

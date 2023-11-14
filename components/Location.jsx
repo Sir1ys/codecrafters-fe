@@ -3,11 +3,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { colors } from "../constants/colors";
 
-export default function Location() {
+export default function Location({ navigation, route }) {
+  const { setLocation } = route.params;
   return (
-    // <View style={StyleSheet.absoluteFillObject}>
-    <View>
-      <Text style={styles.text}>Location</Text>
+    <View style={{ ...StyleSheet.absoluteFillObject, ...styles.googleAuto }}>
       <GooglePlacesAutocomplete
         placeholder="Type a location..."
         query={{ key: process.env.GOOGLE_MAPS_API_KEY }}
@@ -18,6 +17,7 @@ export default function Location() {
           console.log(data.description);
           console.log(details.geometry);
           setLocation(data.description);
+          navigation.goBack();
         }}
         onFail={(error) => console.log(error)}
         onNotFound={() => console.log("no results")}
@@ -34,5 +34,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontStyle: "italic",
     marginBottom: 5,
+  },
+  googleAuto: {
+    zIndex: 1,
   },
 });
