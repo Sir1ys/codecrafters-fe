@@ -7,12 +7,20 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+} from "react-native";
 import { UserContext } from "../contexts/UserContext";
-import { getUserTrips } from "../utils/users_api";
+import { getUserTrips, deleteTrip } from "../utils/users_api";
 import { getFlagCountryByName } from "../utils/countries_api";
 import { colors } from "../constants/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 
 export default function TripsPage({ navigation }) {
@@ -22,7 +30,32 @@ export default function TripsPage({ navigation }) {
   const user = userState[0];
   const isFocused = useIsFocused();
 
+  const removeTrip = (trip_id) => {
+    deleteTrip(user.user_id, trip_id).then(() => {
+      setTrips(() => {
+        const updatedTrips = [...trips];
+        return updatedTrips.filter((trip) => trip.trip_id !== trip_id);
+      });
+    });
+  };
+
   useEffect(() => {
+    isFocused &&
+      getUserTrips(user.user_id)
+        .then((tripsData) => {
+          setTrips(tripsData);
+          return tripsData;
+        })
+        .then((tripsData) => {
+          const promiseArray = tripsData.map((trip) => {
+            return getFlagCountryByName(trip.country);
+          });
+          return Promise.all(promiseArray);
+        })
+        .then((flagData) => {
+          setFlags(flagData);
+        })
+        .catch((err) => console.log(err));
     isFocused &&
       getUserTrips(user.user_id)
         .then((tripsData) => {
@@ -140,6 +173,7 @@ const styles = StyleSheet.create({
   tripInfo: {
     paddingLeft: 10,
     fontFamily: "poppins_bold",
+    alignSelf: "flex-end",
   },
   flag: {
     width: 80,
@@ -164,23 +198,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
     paddingBottom: 10,
-    paddingTop: 10,
+    marginBottom: 10,
   },
-  heading: {
-    fontFamily: "poppins_bold",
-    color: colors.primary,
-    fontSize: 12,
-    alignSelf: "center",
-    textAlign: "center",
-  },
-  textWithHeading: {
-    flexDirection: "row",
-  },
-  text: {
-    fontFamily: "regular",
-    color: `${colors.black}`,
-    flexWrap: "wrap",
-    fontSize: 12,
-    fontStyle: "normal",
+  buttonRemove: {
+    alignSelf: "flex-end",
   },
 });
