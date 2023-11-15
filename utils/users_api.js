@@ -49,3 +49,7 @@ export const getUserTrips = (userId) => {
     .get(`/${userId}/trips`)
     .then((response) => response.data.trips);
 };
+
+export const deleteTrip = (userId, tripId) => {
+  return usersAPI.delete(`/${userId}/trips/${tripId}`);
+};
