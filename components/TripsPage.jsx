@@ -7,14 +7,6 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-} from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import { getUserTrips, deleteTrip } from "../utils/users_api";
 import { getFlagCountryByName } from "../utils/countries_api";
@@ -96,35 +88,48 @@ export default function TripsPage({ navigation }) {
             "en-GB"
           );
           return (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("EventsFeed", {
-                  tripInfo: { country, start_date, end_date },
-                });
-              }}
-              style={styles.tripCard}
-              key={trip_id}
-            >
-              <Image source={{ uri: flags[index] }} style={styles.flag} />
-              <View style={styles.tripInfo}>
-                <View style={styles.textWithHeading}>
-                  <Text style={styles.heading}>Country: </Text>
-                  <Text style={styles.text}>{country}</Text>
+            <View style={styles.tripCard} key={trip_id}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+                onPress={() => {
+                  navigation.navigate("EventsFeed", {
+                    tripInfo: { country, start_date, end_date },
+                  });
+                }}
+              >
+                <Image source={{ uri: flags[index] }} style={styles.flag} />
+                <View style={styles.tripInfo}>
+                  <Text>
+                    <Text style={styles.heading}>Country:</Text> {country}
+                  </Text>
+                  <Text>
+                    <Text style={styles.heading}>City:</Text> {location}
+                  </Text>
+                  <Text>
+                    <Text style={styles.heading}>Start:</Text>{" "}
+                    {start_date.split("T")[0]}
+                  </Text>
+                  <Text>
+                    <Text style={styles.heading}>End:</Text>{" "}
+                    {end_date.split("T")[0]}
+                  </Text>
                 </View>
-                <View style={styles.textWithHeading}>
-                  <Text style={styles.heading}>City: </Text>
-                  <Text style={styles.text}>{location}</Text>
-                </View>
-                <View style={styles.textWithHeading}>
-                  <Text style={styles.heading}>Start: </Text>
-                  <Text style={styles.text}>{formattedStartDate}</Text>
-                </View>
-                <View style={styles.textWithHeading}>
-                  <Text style={styles.heading}>End: </Text>
-                  <Text style={styles.text}>{formattedEndDate}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              <Pressable
+                style={styles.buttonRemove}
+                onPress={() => {
+                  removeTrip(trip_id);
+                }}
+              >
+                <Text>
+                  <AntDesign name="delete" size={24} color={colors.orange} />
+                </Text>
+              </Pressable>
+            </View>
           );
         })}
       </View>
@@ -168,7 +173,7 @@ const styles = StyleSheet.create({
     shadowRadius: 13,
     elevation: 24,
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
   },
   tripInfo: {
     paddingLeft: 10,
@@ -202,5 +207,12 @@ const styles = StyleSheet.create({
   },
   buttonRemove: {
     alignSelf: "flex-end",
+  },
+  heading: {
+    fontFamily: "poppins_bold",
+    color: colors.primary,
+    fontSize: 12,
+    alignSelf: "center",
+    textAlign: "center",
   },
 });

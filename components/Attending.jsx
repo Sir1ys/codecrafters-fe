@@ -22,7 +22,7 @@ export default function Attending({ navigation }) {
     fetchAttending(user.user_id).then((result) => {
       setEventsAttending(result);
     });
-  }, [eventsAttending]);
+  }, []);
 
   return (
     <ScrollView>
@@ -69,7 +69,13 @@ export default function Attending({ navigation }) {
                   </Pressable>
                   <Pressable
                     onPress={() => {
-                      deleteAttending(event.event_id, user.user_id);
+                      deleteAttending(event.event_id, user.user_id).then(() => {
+                        setEventsAttending((prevEvents) => {
+                          return prevEvents.filter(
+                            (oldEvent) => oldEvent.event_id !== event.event_id
+                          );
+                        });
+                      });
                     }}
                     style={styles.cancelButton}
                   >

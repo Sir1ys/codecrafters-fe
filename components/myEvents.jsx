@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Pressable, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from "react-native";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import { deleteCreatedEvent, fetchEvents } from "../api";
@@ -7,21 +14,21 @@ import { UserContext } from "../contexts/UserContext";
 import moment from "moment";
 
 export default function MyEvents({ navigation }) {
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState([]);
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
 
   useEffect(() => {
     fetchEvents().then((result) => {
       const mappedUserEvents = result.events.filter((event) => {
-        return event.creator_id === user.user_id
-      })
-      setEvents(mappedUserEvents)
-  })
-}, [events])
+        return event.creator_id === user.user_id;
+      });
+      setEvents(mappedUserEvents);
+    });
+  }, [events]);
 
   return (
-    <View>
+    <ScrollView>
       <Text style={styles.header}>My Events</Text>
       <View style={styles.buttonContainer}>
         <Pressable
@@ -56,8 +63,11 @@ export default function MyEvents({ navigation }) {
         </Pressable>
       </View>
       <View>
-        {events.length === 0 ? <Text style={styles.header}>You have no events</Text> : events.map((event) => {
-             return (
+        {events.length === 0 ? (
+          <Text style={styles.header}>You have no events</Text>
+        ) : (
+          events.map((event) => {
+            return (
               <View
                 style={[styles.event, styles.shadowProp]}
                 key={event.event_id}
@@ -92,16 +102,21 @@ export default function MyEvents({ navigation }) {
                   >
                     <Text style={styles.buttonText}>See Event</Text>
                   </Pressable>
-                  <Pressable onPress={()=> {deleteCreatedEvent(event.event_id, user.user_id)}} style={styles.cancelButton}>
+                  <Pressable
+                    onPress={() => {
+                      deleteCreatedEvent(event.event_id, user.user_id);
+                    }}
+                    style={styles.cancelButton}
+                  >
                     <Text style={styles.buttonText}>Delete Event</Text>
                   </Pressable>
                 </View>
               </View>
             );
-        })}
-        
+          })
+        )}
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
