@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: "600",
     fontSize: 16,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
   },
   input: {
     borderBottomWidth: 5,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   buttontext: {
     fontSize: 12,
     lineHeight: 25,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },

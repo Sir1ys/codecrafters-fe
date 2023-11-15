@@ -117,7 +117,7 @@ export const Profile = ({ navigation }) => {
         <View style={styles.interestList}>
           {userInterests.map((interest) => {
             return (
-              <View style={styles.singleInterest}>
+              <View key={interest.interest_id} style={styles.singleInterest}>
                 <Text key={interest} style={styles.textInterest}>
                   #{interest.interest}
                 </Text>
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: colors.orange,
     marginBottom: 10,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
   },
   avatar: {
     height: 150,
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 13,
     lineHeight: 15,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },

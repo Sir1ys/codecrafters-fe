@@ -8,11 +8,16 @@ import {
   Platform,
   ScrollView,
   TouchableOpacity,
+  LogBox,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { colors } from "../constants/colors";
 import { UserContext } from "../contexts/UserContext";
 import { postEvent } from "../utils/events_api";
+
+LogBox.ignoreLogs([
+  "Non-serializable values were found in the navigation state",
+]);
 
 export default function AddEvent({ navigation }) {
   const { userState } = useContext(UserContext);
@@ -183,11 +188,11 @@ export default function AddEvent({ navigation }) {
                 latitude,
                 longitude,
                 event_picture: eventPicture,
-              }).then((event) => {
-                navigation
-                  .navigate("SingleEvent", { event, goHome: true })
-                  .catch((err) => console.log(err));
-              });
+              })
+                .then((event) => {
+                  navigation.navigate("SingleEvent", { event, goHome: true });
+                })
+                .catch((err) => console.log(err));
             }}
             style={styles.submitButton}
           >
@@ -209,16 +214,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   header: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 22,
-    color: `${colors.orange}`,
+    color: colors.orange,
     textAlign: "center",
     flexWrap: "wrap",
     padding: 5,
   },
   title: {
-    fontFamily: "poppins_bold",
-    color: `${colors.lightBlack}`,
+    fontFamily: "poppins",
+    color: colors.lightBlack,
     fontSize: 15,
     alignSelf: "center",
     textAlign: "center",
@@ -230,10 +235,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     marginVertical: 10,
     padding: 20,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
     shadowColor: "#219C90",
   },
-  title: { fontFamily: "poppins_bold", color: colors.lightBlack, fontSize: 15 },
+  title: { fontFamily: "poppins", color: colors.lightBlack, fontSize: 15 },
 
   submitButton: {
     alignItems: "center",
@@ -254,7 +259,7 @@ const styles = StyleSheet.create({
   submitButtonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontWeight: "poppins_bold",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },

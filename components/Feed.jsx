@@ -13,7 +13,7 @@ import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 
 export const Feed = ({ navigation, route }) => {
-  const { tripInfo } = route.params;
+  const { country } = route.params;
   const [eventList, setEventList] = useState([]);
 
   const handleSave = () => {
@@ -42,7 +42,7 @@ export const Feed = ({ navigation, route }) => {
         </View>
         <View style={styles.container}>
           {eventList.map((event) => {
-            if (event.location.split(" ").pop() === tripInfo.country) {
+            if (event.location.split(" ").pop() === country) {
               return (
                 <View
                   style={[styles.event, styles.shadowProp]}
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
   },
   event: {
     borderTopLeftRadius: 10,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     marginVertical: 10,
     padding: 20,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
     shadowColor: "#219C90",
     shadowOffset: {
       width: 0,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   header: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 22,
     color: colors.orange,
     paddingTop: 10,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },
@@ -183,15 +183,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   title: {
-    fontFamily: "poppins_bold",
-    color: `${colors.lightBlack}`,
+    fontFamily: "poppins",
+    color: colors.lightBlack,
     fontSize: 15,
     alignSelf: "center",
     textAlign: "center",
   },
   text: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 12,
     fontStyle: "italic",
@@ -199,14 +199,14 @@ const styles = StyleSheet.create({
   },
   body: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 12,
     fontStyle: "normal",
   },
   date: {
-    fontFamily: "poppins_bold",
-    color: `${colors.orange}`,
+    fontFamily: "poppins",
+    color: colors.orange,
     fontSize: 12,
   },
   eventImage: {

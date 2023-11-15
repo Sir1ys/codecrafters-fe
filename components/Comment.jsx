@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   usernameText: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 12,
     color: colors.orange,
   },
   body: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 12,
     fontStyle: "normal",

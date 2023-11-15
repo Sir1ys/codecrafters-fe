@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 13,
     lineHeight: 15,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },

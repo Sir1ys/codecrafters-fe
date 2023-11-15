@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   header: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 22,
     color: colors.orange,
     textAlign: "center",
@@ -188,12 +188,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontWeight: "poppins_bold",
+    fontWeight: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },
   title: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     color: colors.lightBlack,
     fontSize: 15,
   },
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     marginVertical: 10,
     padding: 20,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
     shadowColor: "#219C90",
     shadowOffset: {
       width: 0,
