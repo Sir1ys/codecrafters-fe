@@ -22,8 +22,9 @@ export default function AddEvent({ navigation }) {
   const [location, setLocation] = useState("Click to add location");
   const [description, setDescription] = useState("");
   const [eventPicture, setEventPicture] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [day, setDay] = useState(new Date());
   const [time, setTime] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -37,16 +38,29 @@ export default function AddEvent({ navigation }) {
     setShowTimePicker(!showTimePicker);
   };
 
-  const onDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+  const onDayChange = (event, selectedDay) => {
+    const currentDay = selectedDay || day;
     setShowDatePicker(Platform.OS === "ios");
-    setDate(currentDate);
+    setNewDate({ newDay: currentDay });
+    setDay(currentDay);
   };
 
   const onTimeChange = (event, selectedTime) => {
     const currentTime = selectedTime || time;
     setShowTimePicker(Platform.OS === "ios");
+    setNewDate({ newTime: currentTime });
     setTime(currentTime);
+  };
+
+  const setNewDate = ({ newDay, newTime }) => {
+    if (newTime) {
+      const newDateArg = `${day.toDateString()} ${newTime.toTimeString()}`;
+      setDate(new Date(newDateArg));
+    }
+    if (newDay) {
+      const newDateArg = `${newDay.toDateString()} ${time.toTimeString()}`;
+      setDate(new Date(newDateArg));
+    }
   };
 
   const formatDate = (date) => {
@@ -120,7 +134,7 @@ export default function AddEvent({ navigation }) {
               <TextInput
                 style={styles.text}
                 placeholder="Saturday Jan 01 2023"
-                value={formatDate(date)}
+                value={formatDate(day)}
                 editable={false}
               />
             </Pressable>
@@ -130,8 +144,8 @@ export default function AddEvent({ navigation }) {
             <DateTimePicker
               mode="date"
               display="calendar"
-              value={date}
-              onChange={onDateChange}
+              value={day}
+              onChange={onDayChange}
             />
           )}
 
@@ -170,9 +184,8 @@ export default function AddEvent({ navigation }) {
                 longitude,
                 event_picture: eventPicture,
               }).then((event) => {
-                console.log(event);
                 navigation
-                  .navigate("SingleEvent", { event })
+                  .navigate("SingleEvent", { event, goHome: true })
                   .catch((err) => console.log(err));
               });
             }}
