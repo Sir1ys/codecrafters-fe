@@ -28,9 +28,11 @@ export default function Comment({ comment, removeComment, user }) {
               source={{ uri: updatedComment.userInfo.profile_pic }}
               style={styles.avatar}
             />
-            <Text>{updatedComment.userInfo.username}</Text>
+            <Text style={styles.usernameText}>
+              {updatedComment.userInfo.username}
+            </Text>
           </View>
-          <Text>{updatedComment.body}</Text>
+          <Text style={styles.body}>{updatedComment.body}</Text>
           {user.user_id === updatedComment.user_id ? (
             <Pressable
               style={styles.buttonRemove}
@@ -39,7 +41,7 @@ export default function Comment({ comment, removeComment, user }) {
               }}
             >
               <Text>
-                <AntDesign name="delete" size={24} color="black" />
+                <AntDesign name="delete" size={24} color={colors.orange} />
               </Text>
             </Pressable>
           ) : null}
@@ -51,10 +53,16 @@ export default function Comment({ comment, removeComment, user }) {
 
 const styles = StyleSheet.create({
   commentBox: {
-    backgroundColor: colors.lightGrey,
+    borderColor: colors.primary,
+    backgroundColor: "white",
     marginBottom: 10,
     padding: 20,
     borderRadius: 10,
+    borderWidth: 2,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
   },
   profile: {
     flexDirection: "row",
@@ -62,8 +70,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
   },
-  avatar: { height: 25, width: 25, borderRadius: 5},
+  avatar: {
+    height: 50,
+    width: 50,
+    borderRadius: 5,
+    borderColor: colors.orange,
+    borderWidth: 2,
+  },
   buttonRemove: {
     alignSelf: "flex-end",
+  },
+  usernameText: {
+    fontFamily: "poppins_bold",
+    fontSize: 12,
+    color: colors.orange,
+  },
+  body: {
+    fontFamily: "regular",
+    color: `${colors.black}`,
+    flexWrap: "wrap",
+    fontSize: 12,
+    fontStyle: "normal",
   },
 });

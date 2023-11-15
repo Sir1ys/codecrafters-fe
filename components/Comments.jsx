@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Pressable, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import {
   getCommentsByEventId,
   postCommentsByEventId,
@@ -45,7 +52,7 @@ export default function Comments({ route }) {
 
   const removeComment = (commentId) => {
     deleteCommentsByEventId(eventId, commentId).then(() => {
-      setComments(() => {   
+      setComments(() => {
         const updatedComments = [...comments];
         return updatedComments.filter(
           (comment) => comment.comment_id !== commentId
@@ -55,30 +62,32 @@ export default function Comments({ route }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Comments</Text>
-      <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={(newText) => inputChange(newText)}
-          value={comment}
-          placeholder="Add a comment..."
-        />
-        <Pressable style={styles.buttonCreate} onPress={createComment}>
-          <Text>Comment</Text>
-        </Pressable>
-      </View>
-      {comments.map((commentExample) => {
-        return (
-          <Comment
-            key={commentExample.comment_id}
-            comment={commentExample}
-            removeComment={removeComment}
-            user={user}
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.header}>Comments</Text>
+        <View>
+          <TextInput
+            style={styles.input}
+            onChangeText={(newText) => inputChange(newText)}
+            value={comment}
+            placeholder="Add a comment..."
           />
-        );
-      })}
-    </View>
+          <Pressable style={styles.buttonCreate} onPress={createComment}>
+            <Text style={styles.buttontext}>Comment</Text>
+          </Pressable>
+        </View>
+        {comments.map((commentExample) => {
+          return (
+            <Comment
+              key={commentExample.comment_id}
+              comment={commentExample}
+              removeComment={removeComment}
+              user={user}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 }
 
@@ -90,19 +99,35 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10,
     fontWeight: "600",
-    fontSize: 20,
+    fontSize: 16,
+    fontFamily: "poppins_bold",
   },
   input: {
     borderBottomWidth: 5,
-    borderBottomColor: colors.lightGrey,
+    borderTopWidth: 5,
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
+    padding: 10,
+    borderColor: colors.orange,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    borderTopLeftRadius: 25,
     marginBottom: 10,
+    backgroundColor: "white",
   },
   buttonCreate: {
     alignSelf: "flex-end",
     marginBottom: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.primary,
     borderRadius: 5,
+  },
+  buttontext: {
+    fontSize: 12,
+    lineHeight: 25,
+    fontFamily: "poppins_bold",
+    letterSpacing: 0.25,
+    color: "white",
   },
 });

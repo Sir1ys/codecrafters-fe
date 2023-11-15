@@ -13,11 +13,10 @@ import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import moment from "moment";
 
-export default function Attending({ navigation } ) {
+export default function Attending({ navigation }) {
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
   const [eventsAttending, setEventsAttending] = useState([]);
-
 
   useEffect(() => {
     fetchAttending(user.user_id).then((result) => {
@@ -31,15 +30,15 @@ export default function Attending({ navigation } ) {
         <View>
           <Text style={styles.header}>Events You're Attending</Text>
         </View>
-        <View style={styles.container}>
-          {eventsAttending.map((event) => {
-            return (
-              <View
-                style={[styles.event, styles.shadowProp]}
-                key={event.event_id}
-              >
+        <View>
+          {eventsAttending.map((event) => (
+            <View style={styles.cardContainer} key={event.event_id}>
+              <View style={styles.card}>
                 <Text style={styles.title}>{event.short_description}</Text>
-                <Image src={event.event_picture} style={styles.eventImage} />
+                <Image
+                  source={{ uri: event.event_picture }}
+                  style={styles.eventImage}
+                />
                 <Text style={styles.text}>
                   <Feather
                     name="map-pin"
@@ -68,13 +67,18 @@ export default function Attending({ navigation } ) {
                   >
                     <Text style={styles.buttonText}>See Event</Text>
                   </Pressable>
-                  <Pressable onPress={()=> {deleteAttending(event.event_id, user.user_id)}} style={styles.cancelButton}>
+                  <Pressable
+                    onPress={() => {
+                      deleteAttending(event.event_id, user.user_id);
+                    }}
+                    style={styles.cancelButton}
+                  >
                     <Text style={styles.buttonText}>Cancel</Text>
                   </Pressable>
                 </View>
               </View>
-            );
-          })}
+            </View>
+          ))}
         </View>
       </View>
     </ScrollView>
@@ -161,7 +165,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontWeight: "poppins_bold",
+    fontFamily: "poppins_bold",
     letterSpacing: 0.25,
     color: "white",
   },
@@ -170,5 +174,22 @@ const styles = StyleSheet.create({
     height: 150,
     alignSelf: "center",
     marginVertical: 10,
+  },
+  title: {
+    fontFamily: "poppins_bold",
+    color: `${colors.lightBlack}`,
+    fontSize: 15,
+    alignSelf: "center",
+    textAlign: "center",
+  },
+  cardContainer: {
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    borderRadius: 5,
+    padding: 10,
+    margin: 5,
+    elevation: 3,
+    width: "90%",
   },
 });

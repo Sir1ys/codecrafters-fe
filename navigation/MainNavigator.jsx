@@ -181,7 +181,27 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="UpdateAbout"
         component={UpdateAboutSection}
-        options={{ gestureEnabled: true, headerTitle: "Update Profile" }}
+        options={{
+          gestureEnabled: true,
+          headerMode: "screen",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerTitleAlign: "center",
+        }}
       />
       <Stack.Screen
         name="EventsFeed"
@@ -236,7 +256,27 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="EventComments"
         component={Comments}
-        options={{ gestureEnabled: true, headerTitle: "Local Events" }}
+        options={{
+          gestureEnabled: true,
+          headerMode: "screen",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: "#EE9322",
+            height: 100,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerTitleAlign: "center",
+        }}
       />
     </Stack.Navigator>
   );

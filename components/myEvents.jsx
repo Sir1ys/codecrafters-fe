@@ -8,8 +8,10 @@ export default function MyEvents({ navigation }) {
     <View>
       <Text style={styles.header}>My Events</Text>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.button} 
-        onPress={() => navigation.navigate("SavedEvents")}>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("SavedEvents")}
+        >
           <View
             style={{
               flexDirection: "row",
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontWeight: "poppins_bold",
+    fontFamily: "poppins_bold",
     letterSpacing: 0.25,
     color: "white",
   },
