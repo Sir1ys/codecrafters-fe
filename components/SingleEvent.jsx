@@ -215,19 +215,19 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "poppins",
     fontSize: 22,
-    color: `${colors.orange}`,
+    color: colors.orange,
     textAlign: "center",
     width: 410,
     flexWrap: "wrap",
   },
   date: {
     fontFamily: "poppins",
-    color: `${colors.orange}`,
+    color: colors.orange,
     fontSize: 12,
   },
   body: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 13,
     fontStyle: "normal",

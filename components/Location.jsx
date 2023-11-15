@@ -27,7 +27,7 @@ export default function Location({ navigation, route }) {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 20,
     fontStyle: "italic",

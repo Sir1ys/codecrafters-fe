@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "poppins",
     fontSize: 22,
-    color: `${colors.orange}`,
+    color: colors.orange,
     paddingTop: 10,
   },
   container: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
   },
   tripCard: {
     flexDirection: "row",
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     marginVertical: 10,
     padding: 10,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
     shadowColor: "#219C90",
     shadowOffset: {
       width: 50,

@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
   },
   event: {
     borderTopLeftRadius: 10,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     marginVertical: 10,
     padding: 20,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
     shadowColor: "#219C90",
     shadowOffset: {
       width: 0,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "poppins",
-    color: `${colors.lightBlack}`,
+    color: colors.lightBlack,
     fontSize: 15,
     alignSelf: "center",
     textAlign: "center",
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   },
   date: {
     fontFamily: "poppins",
-    color: `${colors.orange}`,
+    color: colors.orange,
     fontSize: 12,
   },
   eventImage: {

@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 12,
     fontStyle: "italic",
@@ -139,19 +139,19 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "poppins",
     fontSize: 22,
-    color: `${colors.orange}`,
+    color: colors.orange,
     textAlign: "center",
     width: 410,
     flexWrap: "wrap",
   },
   date: {
     fontFamily: "poppins",
-    color: `${colors.orange}`,
+    color: colors.orange,
     fontSize: 12,
   },
   body: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 13,
     fontStyle: "normal",
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "poppins",
-    color: `${colors.lightBlack}`,
+    color: colors.lightBlack,
     fontSize: 15,
     alignSelf: "center",
     textAlign: "center",
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     padding: 20,
     width: "90%",
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
     shadowColor: "#219C90",
     shadowOffset: {
       width: 0,

@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   body: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 12,
     fontStyle: "normal",
