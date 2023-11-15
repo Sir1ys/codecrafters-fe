@@ -64,7 +64,7 @@ export default function SignIn() {
       username: "butter_bridge",
       name: "Jonny",
       profile_pic:
-        "https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg",
+        "https://t4.ftcdn.net/jpg/00/97/58/97/360_F_97589769_t45CqXyzjz0KXwoBZT9PRaWGHRk5hQqQ.jpg",
       created_at: "2022-12-01T00:00:00.000Z",
       email: "fakeemail1@gmrail.com",
     });
