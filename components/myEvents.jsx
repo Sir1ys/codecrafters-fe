@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "poppins",
     fontSize: 22,
-    color: `${colors.orange}`,
+    color: colors.orange,
     paddingTop: 10,
     textAlign: "center",
   },
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
   },
   text: {
     fontFamily: "regular",
@@ -178,12 +178,12 @@ const styles = StyleSheet.create({
   },
   date: {
     fontFamily: "poppins",
-    color: `${colors.orange}`,
+    color: colors.orange,
     fontSize: 12,
   },
   body: {
     fontFamily: "regular",
-    // color: `${colors.black}`,
+    // color: colors.black,
     flexWrap: "wrap",
     fontSize: 13,
     fontStyle: "normal",
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 10,
     padding: 20,
-    backgroundColor: `${colors.white}`,
+    backgroundColor: colors.white,
     shadowColor: "#219C90",
     shadowOffset: {
       width: 0,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "poppins",
-    color: `${colors.lightBlack}`,
+    color: colors.lightBlack,
     fontSize: 15,
     alignSelf: "center",
     textAlign: "center",
