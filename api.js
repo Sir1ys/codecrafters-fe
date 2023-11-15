@@ -74,3 +74,8 @@ export const deleteSaved = (event_id, user_id) => {
   return api
   .delete(`/users/${user_id}/events-saved/${event_id}`)
 }
+
+export const deleteCreatedEvent = (event_id, user_id) => {
+  return api
+  .delete(`/events/${event_id}`)
+}
