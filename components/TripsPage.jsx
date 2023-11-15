@@ -97,7 +97,7 @@ export default function TripsPage({ navigation }) {
                 }}
                 onPress={() => {
                   navigation.navigate("EventsFeed", {
-                    tripInfo: { country, start_date, end_date },
+                    country,
                   });
                 }}
               >
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   header: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 22,
     color: `${colors.orange}`,
     paddingTop: 10,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   tripInfo: {
     paddingLeft: 10,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     alignSelf: "flex-end",
   },
   flag: {
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   heading: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     color: colors.primary,
     fontSize: 12,
     alignSelf: "center",

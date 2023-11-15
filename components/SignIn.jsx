@@ -83,7 +83,7 @@ export default function SignIn() {
           fontWeight: "600",
           textAlign: "center",
           color: `${colors.orange}`,
-          fontFamily: "poppins_bold",
+          fontFamily: "poppins",
         }}
       >
         Sign In

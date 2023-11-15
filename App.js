@@ -14,9 +14,8 @@ export default function App() {
       try {
         await Font.loadAsync({
           black: require("./assets/fonts/Montserrat-Thin.ttf"),
-          poppins_bold: require("./assets/fonts/Poppins-Bold.ttf"),
+          poppins: require("./assets/fonts/Poppins-Bold.ttf"),
           bold: require("./assets/fonts/Poppins-Bold.ttf"),
-          poppins_black: require("./assets/fonts/Poppins-Black.ttf"),
           regular: require("./assets/fonts/Poppins-Regular.ttf"),
           thin: require("./assets/fonts/Poppins-Thin.ttf"),
         });
@@ -28,6 +27,8 @@ export default function App() {
     };
     prepare();
   }, []);
+
+  if (isLoading) return <></>;
 
   return (
     <UserProvider>
@@ -43,6 +44,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     justifyContent: "center",
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
   },
 });

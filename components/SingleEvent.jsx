@@ -129,7 +129,7 @@ export default function SingleEvent({ navigation, route }) {
               });
             }}
           >
-            <FontAwesome name="comment" size={24} color="black" />
+            <FontAwesome name="comment" size={24} color="white" />
           </Pressable>
         </View>
 
@@ -206,14 +206,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
     fontSize: 12,
     fontStyle: "italic",
     marginBottom: 5,
   },
   header: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 22,
     color: `${colors.orange}`,
     textAlign: "center",
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   date: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     color: `${colors.orange}`,
     fontSize: 12,
   },
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },

@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },
   header: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 22,
     color: `${colors.orange}`,
     paddingTop: 10,
@@ -171,20 +171,19 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "regular",
-    color: `${colors.black}`,
     flexWrap: "wrap",
     fontSize: 12,
     fontStyle: "italic",
     marginBottom: 5,
   },
   date: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     color: `${colors.orange}`,
     fontSize: 12,
   },
   body: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    // color: `${colors.black}`,
     flexWrap: "wrap",
     fontSize: 13,
     fontStyle: "normal",
@@ -197,7 +196,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 10,
     padding: 20,
-
     backgroundColor: `${colors.white}`,
     shadowColor: "#219C90",
     shadowOffset: {
@@ -209,7 +207,7 @@ const styles = StyleSheet.create({
     elevation: 24,
   },
   title: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     color: `${colors.lightBlack}`,
     fontSize: 15,
     alignSelf: "center",

@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   usernameText: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins",
     fontSize: 12,
     color: colors.orange,
   },

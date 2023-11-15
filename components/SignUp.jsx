@@ -87,7 +87,7 @@ export default function SignUp() {
           fontWeight: "600",
           textAlign: "center",
           color: `${colors.red}`,
-          fontFamily: "poppins_bold",
+          fontFamily: "poppins",
         }}
       >
         Sign Up
