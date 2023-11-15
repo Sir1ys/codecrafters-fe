@@ -124,7 +124,7 @@ export const Profile = ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() => handleDeleteInterest(interest.interest_id)}
                 >
-                  <Feather name="delete" size={24} color="red" />
+                  <Feather name="delete" size={24} color={colors.orange} />
                 </TouchableOpacity>
               </View>
             );
@@ -132,6 +132,11 @@ export const Profile = ({ navigation }) => {
         </View>
       </View>
       <RNPickerSelect
+        style={{
+          placeholder: {
+            color: "#D83F31",
+          },
+        }}
         placeholder={{ label: "Pick a new interest" }}
         onValueChange={(value) => handleNewInterest(value)}
         items={newInterestList.filter((interest) => {
@@ -140,7 +145,7 @@ export const Profile = ({ navigation }) => {
         value={pickerValue}
       />
       <TouchableOpacity onPress={() => addNewInterest(newInterest)}>
-        <Feather name="plus-circle" size={24} color="green" />
+        <Feather name="plus-circle" size={24} color={colors.blue} />
       </TouchableOpacity>
 
       <CustomButton
@@ -194,6 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.blue,
     fontWeight: "600",
+    fontFamily: "regular",
   },
   edit: {
     alignSelf: "flex-end",
@@ -218,6 +224,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: colors.blue,
     padding: 10,
+    fontFamily: "regular",
   },
   button: {
     backgroundColor: colors.blue,
@@ -227,6 +234,10 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   textButton: {
+    fontSize: 13,
+    lineHeight: 15,
+    fontFamily: "poppins_bold",
+    letterSpacing: 0.25,
     color: "white",
   },
   singleInterest: {
