@@ -174,5 +174,39 @@ export default function SavedEvents({navigation} ) {
         alignSelf: "center",
         marginVertical: 10,
       },
+      event: {
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        marginVertical: 10,
+        padding: 20,
+        backgroundColor: `${colors.white}`,
+        shadowColor: "#219C90",
+        shadowOffset: {
+          width: 0,
+          height: 12,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 13,
+        elevation: 24,
+      },
+      title: {
+        fontFamily: "poppins_bold",
+        color: `${colors.lightBlack}`,
+        fontSize: 15,
+        alignSelf: "center",
+        textAlign: "center",
+      },
+      shadowProp: {
+        shadowColor: "#219C90",
+        shadowOffset: {
+          width: 0,
+          height: 12,
+        },
+        shadowOpacity: 13,
+        shadowRadius: 23,
+        elevation: 30,
+      },
     });
     
