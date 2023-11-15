@@ -59,7 +59,14 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerMode: "screen",
-          headerTitle: "",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
@@ -68,6 +75,7 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -76,7 +84,14 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerMode: "screen",
-          headerTitle: "",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
@@ -85,6 +100,7 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -93,7 +109,14 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerMode: "screen",
-          headerTitle: "",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
@@ -102,6 +125,7 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -110,7 +134,14 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerMode: "screen",
-          headerTitle: "",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
@@ -119,6 +150,7 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -127,7 +159,14 @@ export const MainNavigator = () => {
         options={{
           gestureEnabled: true,
           headerMode: "screen",
-          headerTitle: "",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
@@ -136,6 +175,7 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -148,10 +188,15 @@ export const MainNavigator = () => {
         component={Feed}
         options={{
           gestureEnabled: true,
-          headerTitle: "Local Events",
-          gestureEnabled: true,
           headerMode: "screen",
-          headerTitle: "",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
@@ -160,6 +205,7 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -167,9 +213,15 @@ export const MainNavigator = () => {
         component={Location}
         options={{
           gestureEnabled: true,
-          headerTitle: "Event location",
           headerMode: "screen",
-          headerTitle: "",
+          title: (
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.tinyLogo}
+                source={require("../assets/tinyLogo.png")}
+              />
+            </View>
+          ),
           headerStyle: {
             backgroundColor: "#EE9322",
             height: 100,
@@ -178,6 +230,7 @@ export const MainNavigator = () => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen

@@ -180,8 +180,9 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 20,
     fontWeight: "500",
-    color: "#034694",
+    color: colors.orange,
     marginBottom: 10,
+    fontFamily: "poppins_bold",
   },
   avatar: {
     height: 150,
