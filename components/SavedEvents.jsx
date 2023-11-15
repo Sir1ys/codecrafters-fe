@@ -182,8 +182,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   card: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
     backgroundColor: "white",
-    borderWidth: 1,
     borderColor: colors.lightGray,
     borderRadius: 5,
     padding: 10,

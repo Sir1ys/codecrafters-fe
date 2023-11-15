@@ -5,7 +5,7 @@ import { Feed } from "../components/Feed";
 import { Profile } from "../components/Profile";
 import { colors } from "../constants/colors";
 import TripsPage from "../components/TripsPage";
-import MyEvents from "../components/myEvents";
+import MyEvents from "../components/MyEvents";
 
 const Tab = createBottomTabNavigator();
 
