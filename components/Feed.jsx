@@ -17,8 +17,8 @@ export const Feed = ({ navigation, route }) => {
   const [eventList, setEventList] = useState([]);
 
   const handleSave = () => {
-    saveEvent(event.event_id, user.user_id)
-  }
+    saveEvent(event.event_id, user.user_id);
+  };
 
   useEffect(() => {
     fetchEvents().then(({ events }) => {
@@ -30,17 +30,18 @@ export const Feed = ({ navigation, route }) => {
     <ScrollView>
       <View style={styles.container}>
         <View>
-          <Text style={styles.header}>Your Feed</Text>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate("AddEvent")}
-          >
-            <Feather name="plus" size={24} color={colors.white} />
-          </Pressable>
+          <Text style={styles.header}>Nearby Events</Text>
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={styles.addButton}
+              onPress={() => navigation.navigate("AddEvent")}
+            >
+              <Feather name="plus" size={24} color={colors.white} />
+            </Pressable>
+          </View>
         </View>
         <View style={styles.container}>
           {eventList.map((event) => {
-            console.log(event);
             if (event.location.split(" ").pop() === tripInfo.country) {
               return (
                 <View
@@ -52,6 +53,7 @@ export const Feed = ({ navigation, route }) => {
                     source={{ uri: event.event_picture }}
                     style={styles.eventImage}
                   />
+
                   <Text style={styles.text}>
                     <Feather
                       name="map-pin"
@@ -127,6 +129,9 @@ const styles = StyleSheet.create({
     shadowRadius: 23,
     elevation: 30,
   },
+  addButton: {
+    backgroundColor: colors.red,
+  },
   button: {
     alignItems: "center",
     justifyContent: "center",
@@ -146,15 +151,31 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "poppins_bold",
     fontSize: 22,
-    color: `${colors.orange}`,
+    color: colors.orange,
     paddingTop: 10,
   },
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontWeight: "poppins_bold",
+    fontFamily: "poppins_bold",
     letterSpacing: 0.25,
     color: "white",
+  },
+  addButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 29,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    paddingBottom: 10,
+    marginBottom: 10,
   },
   buttonContainer: {
     flexDirection: "row",

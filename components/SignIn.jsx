@@ -59,7 +59,6 @@ export default function SignIn() {
   };
 
   const demoSignIn = () => {
-    console.log("Demo");
     setUser({
       user_id: "1",
       username: "butter_bridge",

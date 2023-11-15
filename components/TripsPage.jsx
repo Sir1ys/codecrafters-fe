@@ -48,23 +48,53 @@ export default function TripsPage({ navigation }) {
           setFlags(flagData);
         })
         .catch((err) => console.log(err));
+    isFocused &&
+      getUserTrips(user.user_id)
+        .then((tripsData) => {
+          setTrips(tripsData);
+          return tripsData;
+        })
+        .then((tripsData) => {
+          const promiseArray = tripsData.map((trip) => {
+            return getFlagCountryByName(trip.country);
+          });
+          return Promise.all(promiseArray);
+        })
+        .then((flagData) => {
+          setFlags(flagData);
+        })
+        .catch((err) => console.log(err));
   }, [isFocused]);
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.header}>Your Trips</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Your Trips</Text>
+        </View>
         <Pressable
           style={styles.button}
           onPress={() => navigation.navigate("AddTrip", { setTrips, setFlags })}
         >
           <Feather name="plus" size={24} color={colors.white} />
         </Pressable>
+
         {trips.map((trip, index) => {
           const { country, trip_id, location, start_date, end_date } = trip;
+          const formattedStartDate = new Date(start_date).toLocaleDateString(
+            "en-GB"
+          );
+          const formattedEndDate = new Date(end_date).toLocaleDateString(
+            "en-GB"
+          );
           return (
             <View style={styles.tripCard} key={trip_id}>
               <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
                 onPress={() => {
                   navigation.navigate("EventsFeed", {
                     tripInfo: { country, start_date, end_date },
@@ -96,7 +126,7 @@ export default function TripsPage({ navigation }) {
                 }}
               >
                 <Text>
-                  <AntDesign name="delete" size={24} color="black" />
+                  <AntDesign name="delete" size={24} color={colors.orange} />
                 </Text>
               </Pressable>
             </View>
@@ -108,6 +138,9 @@ export default function TripsPage({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: "row",
+  },
   header: {
     fontFamily: "poppins_bold",
     fontSize: 22,
@@ -122,47 +155,49 @@ const styles = StyleSheet.create({
     backgroundColor: `${colors.white}`,
   },
   tripCard: {
-    flexDirection: "column",
-    width: "80%",
+    flexDirection: "row",
+    width: "90%",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     marginVertical: 10,
-    padding: 20,
+    padding: 10,
     backgroundColor: `${colors.white}`,
     shadowColor: "#219C90",
     shadowOffset: {
-      width: 0,
+      width: 50,
       height: 12,
     },
-    shadowOpacity: 1,
+    shadowOpacity: 5,
     shadowRadius: 13,
     elevation: 24,
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
   },
   tripInfo: {
     paddingLeft: 10,
     fontFamily: "poppins_bold",
-    alignSelf: 'flex-end'
+    alignSelf: "flex-end",
   },
   flag: {
-    width: 70,
-    height: 50,
+    width: 80,
+    height: 60,
+    borderWidth: 1,
+    borderRadius: 1,
+    borderColor: "black",
   },
-  heading: {
-    color: `${colors.grey}`,
-  },
+
   button: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 29,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderRadius: 4,
     elevation: 3,
     backgroundColor: colors.primary,
     borderWidth: 1,
+    borderColor: "white",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
@@ -172,5 +207,12 @@ const styles = StyleSheet.create({
   },
   buttonRemove: {
     alignSelf: "flex-end",
+  },
+  heading: {
+    fontFamily: "poppins_bold",
+    color: colors.primary,
+    fontSize: 12,
+    alignSelf: "center",
+    textAlign: "center",
   },
 });

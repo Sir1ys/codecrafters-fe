@@ -13,17 +13,16 @@ import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 import moment from "moment";
 
-export default function Attending({ navigation } ) {
+export default function Attending({ navigation }) {
   const { userState } = useContext(UserContext);
   const [user, setUser] = userState;
   const [eventsAttending, setEventsAttending] = useState([]);
-
 
   useEffect(() => {
     fetchAttending(user.user_id).then((result) => {
       setEventsAttending(result);
     });
-  }, [eventsAttending]);
+  }, []);
 
   return (
     <ScrollView>
@@ -31,15 +30,15 @@ export default function Attending({ navigation } ) {
         <View>
           <Text style={styles.header}>Events You're Attending</Text>
         </View>
-        <View style={styles.container}>
-          {eventsAttending.map((event) => {
-            return (
-              <View
-                style={[styles.event, styles.shadowProp]}
-                key={event.event_id}
-              >
+        <View>
+          {eventsAttending.map((event) => (
+            <View style={styles.cardContainer} key={event.event_id}>
+              <View style={styles.card}>
                 <Text style={styles.title}>{event.short_description}</Text>
-                <Image src={event.event_picture} style={styles.eventImage} />
+                <Image
+                  source={{ uri: event.event_picture }}
+                  style={styles.eventImage}
+                />
                 <Text style={styles.text}>
                   <Feather
                     name="map-pin"
@@ -68,13 +67,24 @@ export default function Attending({ navigation } ) {
                   >
                     <Text style={styles.buttonText}>See Event</Text>
                   </Pressable>
-                  <Pressable onPress={()=> {deleteAttending(event.event_id, user.user_id)}} style={styles.cancelButton}>
+                  <Pressable
+                    onPress={() => {
+                      deleteAttending(event.event_id, user.user_id).then(() => {
+                        setEventsAttending((prevEvents) => {
+                          return prevEvents.filter(
+                            (oldEvent) => oldEvent.event_id !== event.event_id
+                          );
+                        });
+                      });
+                    }}
+                    style={styles.cancelButton}
+                  >
                     <Text style={styles.buttonText}>Cancel</Text>
                   </Pressable>
                 </View>
               </View>
-            );
-          })}
+            </View>
+          ))}
         </View>
       </View>
     </ScrollView>
@@ -161,7 +171,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontWeight: "poppins_bold",
+    fontFamily: "poppins_bold",
     letterSpacing: 0.25,
     color: "white",
   },
@@ -178,13 +188,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     textAlign: "center",
   },
-  event: {
+  cardContainer: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
+    borderRadius: 5,
     marginVertical: 10,
     padding: 20,
+    width: "90%",
     backgroundColor: `${colors.white}`,
     shadowColor: "#219C90",
     shadowOffset: {
@@ -194,15 +206,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 13,
     elevation: 24,
-  },
-  shadowProp: {
-    shadowColor: "#219C90",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 13,
-    shadowRadius: 23,
-    elevation: 30,
   },
 });

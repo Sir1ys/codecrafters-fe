@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { reducer } from "../utils/formReducer";
 import { validateInput } from "../utils/validation";
 import { updateUser } from "../utils/users_api";
+import { colors } from "../constants/colors";
 
 export default function UpdateAboutSection({ route, navigation }) {
   const { user, setUser } = route.params;
@@ -92,8 +93,22 @@ const styles = StyleSheet.create({
     color: "#034694",
     marginBottom: 10,
   },
-  buttonsContainer: { flexDirection: "row", gap: 5 },
+  buttonsContainer: {
+    flexDirection: "row",
+    gap: 5,
+  },
   button: {
-    backgroundColor: "red",
+    backgroundColor: colors.primary,
+    paddingHorizontal: 50,
+    paddingVertical: 15,
+    borderRadius: 20,
+    margin: 20,
+  },
+  textButton: {
+    fontSize: 13,
+    lineHeight: 15,
+    fontFamily: "poppins_bold",
+    letterSpacing: 0.25,
+    color: "white",
   },
 });

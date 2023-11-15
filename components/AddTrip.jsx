@@ -64,7 +64,7 @@ export default function AddTrip({ navigation, route }) {
 
   const handleSubmit = () => {
     return fetchLatLong(city)
-      .then((coordinates) => {   
+      .then((coordinates) => {
         return postTrip(
           user.user_id,
           fromDate,
@@ -77,14 +77,14 @@ export default function AddTrip({ navigation, route }) {
       })
       .then(() => {
         navigation.navigate("Home");
-      })
+      });
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Add a Trip</Text>
 
-      <Text style={styles.text}>Country</Text>
+      <Text style={styles.title}>Country</Text>
       <TextInput
         autocapitalize="words"
         placeholder="e.g Spain"
@@ -94,7 +94,7 @@ export default function AddTrip({ navigation, route }) {
         }}
       />
 
-      <Text style={styles.text}>City:</Text>
+      <Text style={styles.title}>City:</Text>
       <TextInput
         placeholder="e.g Barcelona"
         value={city}
@@ -104,7 +104,7 @@ export default function AddTrip({ navigation, route }) {
       />
 
       <View>
-        <Text style={styles.text}> From:</Text>
+        <Text style={styles.title}> From:</Text>
         {!showFromDatePicker && (
           <Pressable onPress={toggleFromDatePicker}>
             <TextInput
@@ -124,7 +124,7 @@ export default function AddTrip({ navigation, route }) {
             onChange={onFromDateChange}
           />
         )}
-        <Text style={styles.text}> To:</Text>
+        <Text style={styles.title}> To:</Text>
         {!showToDatePicker && (
           <Pressable onPress={toggleToDatePicker}>
             <TextInput
@@ -144,9 +144,11 @@ export default function AddTrip({ navigation, route }) {
           />
         )}
       </View>
-      <Pressable>
-        <Text onPress={handleSubmit}>Submit</Text>
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -154,17 +156,66 @@ export default function AddTrip({ navigation, route }) {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "regular",
-    color: `${colors.black}`,
+    color: colors.black,
     flexWrap: "wrap",
-    fontSize: 20,
+    fontSize: 15,
     fontStyle: "italic",
     marginBottom: 5,
   },
   header: {
     fontFamily: "poppins_bold",
     fontSize: 22,
-    color: `${colors.orange}`,
+    color: colors.orange,
     textAlign: "center",
     flexWrap: "wrap",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 29,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    paddingBottom: 10,
+    marginBottom: 10,
+  },
+  buttonText: {
+    fontSize: 13,
+    lineHeight: 15,
+    fontWeight: "poppins_bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+  title: {
+    fontFamily: "poppins_bold",
+    color: colors.lightBlack,
+    fontSize: 15,
+  },
+  buttonContainer: {
+    width: "100%", // Set the width of the container to 100%
+    alignItems: "center", // Center the content horizontally
+  },
+  container: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    marginVertical: 10,
+    padding: 20,
+    backgroundColor: `${colors.white}`,
+    shadowColor: "#219C90",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 13,
+    elevation: 24,
   },
 });
