@@ -10,6 +10,7 @@ import { validateInput } from "../utils/validation";
 import { reducer } from "../utils/formReducer";
 import { createUser } from "../utils/users_api";
 import { dateFromTimestamp } from "../utils/dates";
+import { app } from "../firebase";
 
 export default function SignUp() {
   const [passwordSignUp, setPasswordSignUp] = useState("");
@@ -48,7 +49,7 @@ export default function SignUp() {
   );
 
   const handleSubmit = () => {
-    const auth = getAuth();
+    const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, emailSignUp, passwordSignUp)
       .then(({ user }) => {
         const { email, uid } = user;

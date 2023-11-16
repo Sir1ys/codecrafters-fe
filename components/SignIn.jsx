@@ -1,6 +1,6 @@
 import React, { useState, useContext, useReducer, useCallback } from "react";
 import { View, Text, Image } from "react-native";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, getApp, signInWithEmailAndPassword } from "firebase/auth";
 import { Feather } from "@expo/vector-icons";
 import { Input } from "./Input";
 import { SubmitButton } from "./SubmitButton";
@@ -9,6 +9,7 @@ import { UserContext } from "../contexts/UserContext";
 import { reducer } from "../utils/formReducer";
 import { validateInput } from "../utils/validation";
 import { getUserById } from "../utils/users_api";
+import {app} from "../firebase";
 
 export default function SignIn() {
   const [emailSignIn, setEmailSignIn] = useState("");
@@ -42,7 +43,7 @@ export default function SignIn() {
   );
 
   const handleSubmit = () => {
-    const auth = getAuth();
+    const auth = getAuth(app);
     signInWithEmailAndPassword(auth, emailSignIn, passwordSignIn)
       .then(({ user }) => {
         const { uid } = user;

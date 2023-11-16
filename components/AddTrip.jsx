@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     lineHeight: 15,
-    fontWeight: "poppins",
+    fontFamily: "poppins",
     letterSpacing: 0.25,
     color: "white",
   },
