@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 export const fetchEvents = () => {
-  return api.get("/events").then((response) => response.data);
+  return api.get("/events?limit=100").then((response) => response.data);
 };
 
 export const attendEvent = (event_id, user_id) => {
@@ -16,7 +16,7 @@ export const attendEvent = (event_id, user_id) => {
 
 export const saveEvent = (event_id, user_id) => {
   return api.post(`users/${user_id}/events-saved/${event_id}`);
-}
+};
 
 export const fetchAttending = (user_id) => {
   return api
@@ -25,13 +25,13 @@ export const fetchAttending = (user_id) => {
       return response.data;
     })
     .then((data) => {
-   return data.events
+      return data.events;
     });
 };
 
 export const fetchSavedEvents = (user_id) => {
-  return api.get(`/users/${user_id}/events-saved`)
-}
+  return api.get(`/users/${user_id}/events-saved`);
+};
 
 export const postTrip = (
   creator_id,
@@ -66,16 +66,13 @@ export const fetchLatLong = (city) => {
 };
 
 export const deleteAttending = (event_id, user_id) => {
-  return api
-  .delete(`/users/${user_id}/attending-events/${event_id}`)
-}
+  return api.delete(`/users/${user_id}/attending-events/${event_id}`);
+};
 
 export const deleteSaved = (event_id, user_id) => {
-  return api
-  .delete(`/users/${user_id}/events-saved/${event_id}`)
-}
+  return api.delete(`/users/${user_id}/events-saved/${event_id}`);
+};
 
 export const deleteCreatedEvent = (event_id, user_id) => {
-  return api
-  .delete(`/events/${event_id}`)
-}
+  return api.delete(`/events/${event_id}`);
+};
